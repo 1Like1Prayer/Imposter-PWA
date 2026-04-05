@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding: calc(24px + var(--safe-top)) calc(20px + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(20px + var(--safe-left));
+  padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top)) calc(clamp(12px, 5vw, 20px) + var(--safe-right)) calc(clamp(16px, 5vw, 24px) + var(--safe-bottom)) calc(clamp(12px, 5vw, 20px) + var(--safe-left));
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
@@ -17,7 +17,7 @@
 .category-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: clamp(8px, 3vw, 12px);
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -34,7 +34,7 @@
   border: 2px solid var(--border);
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   /* Minimum touch target */
@@ -46,8 +46,9 @@
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-.category-card:active {
-  transform: scale(0.97);
+.category-card:active:not(:disabled) {
+  transform: scale(0.95);
+  background: var(--bg-card-hover);
 }
 
 .category-card.selected {
@@ -63,18 +64,18 @@
 }
 
 .category-emoji {
-  font-size: 36px;
+  font-size: clamp(28px, 9vw, 36px);
   line-height: 1;
 }
 
 .category-name {
-  font-size: 15px;
+  font-size: clamp(13px, 3.8vw, 15px);
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .category-desc {
-  font-size: 12px;
+  font-size: clamp(11px, 3vw, 12px);
   color: var(--text-muted);
   text-align: center;
 }
@@ -94,21 +95,9 @@
   color: var(--secondary-accent);
 }
 
-/* Small screens: keep 2 columns but reduce card padding */
+/* Small screens: reduce card padding */
 @media (max-width: 374px) {
   .category-card {
     padding: 16px 8px;
-  }
-
-  .category-emoji {
-    font-size: 28px;
-  }
-
-  .category-name {
-    font-size: 13px;
-  }
-
-  .category-desc {
-    font-size: 11px;
   }
 }

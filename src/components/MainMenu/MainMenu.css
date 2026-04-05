@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  padding: calc(40px + var(--safe-top)) calc(20px + var(--safe-right)) calc(40px + var(--safe-bottom)) calc(20px + var(--safe-left));
+  padding: calc(40px + var(--safe-top)) calc(clamp(12px, 5vw, 20px) + var(--safe-right)) calc(40px + var(--safe-bottom)) calc(clamp(12px, 5vw, 20px) + var(--safe-left));
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -49,7 +49,7 @@
 }
 
 .menu-title {
-  font-size: 56px;
+  font-size: clamp(40px, 14vw, 56px);
   font-weight: 900;
   letter-spacing: -2px;
   background: linear-gradient(135deg, var(--accent) 0%, var(--secondary-accent) 100%);
@@ -61,7 +61,7 @@
 }
 
 .menu-subtitle {
-  font-size: 16px;
+  font-size: clamp(14px, 4vw, 16px);
   color: var(--text-muted);
   margin-bottom: 32px;
 }
@@ -75,18 +75,13 @@
 }
 
 .menu-buttons .btn {
-  font-size: 18px;
-  padding: 16px 32px;
+  font-size: clamp(16px, 4.5vw, 18px);
+  padding: clamp(14px, 4vw, 16px) clamp(24px, 7vw, 32px);
 }
 
 /* Small screens */
 @media (max-width: 374px) {
-  .menu-title {
-    font-size: 44px;
-  }
-
-  .menu-buttons .btn {
-    font-size: 16px;
-    padding: 14px 24px;
+  .menu-buttons {
+    max-width: 240px;
   }
 }
