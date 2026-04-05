@@ -11,11 +11,17 @@ import { initReactI18next } from 'react-i18next'
 import enTranslation from '../public/locales/en/translation.json'
 import heTranslation from '../public/locales/he/translation.json'
 
+const RTL_LANGUAGES = ['he', 'ar']
+
+function applyDirection(lng: string) {
+  document.documentElement.dir = RTL_LANGUAGES.includes(lng) ? 'rtl' : 'ltr'
+}
+
 i18next
   .use(initReactI18next)
   .init({
-    returnEmptyString: false, // allows empty string as valid translation
-    // lng: 'he', // or add a language detector to detect the preferred language of your user
+    returnEmptyString: false,
+    lng: 'he',
     fallbackLng: 'en',
     defaultNS: 'translation',
     resources: {
@@ -23,5 +29,9 @@ i18next
       he: { translation: heTranslation },
     },
   })
+
+// Set direction on init and on every language change
+applyDirection(i18next.language)
+i18next.on('languageChanged', applyDirection)
 
 export default i18next

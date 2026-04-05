@@ -10,7 +10,6 @@ interface MainMenuProps {
 export default function MainMenu({ onPlay, onRules }: MainMenuProps) {
   const { t, i18n } = useTranslation();
   const isHebrew = i18n.language === 'he';
-
   const toggleLanguage = () => {
     i18n.changeLanguage(isHebrew ? 'en' : 'he');
   };

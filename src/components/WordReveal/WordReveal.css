@@ -247,6 +247,19 @@
   gap: 6px;
 }
 
+/* RTL fixes for the reveal screen */
+[dir="rtl"] .reveal-back-btn svg {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .reveal-next-btn svg {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .reveal-swipe-hint {
+  flex-direction: row-reverse;
+}
+
 /* =============================================
    All revealed — game ready
    ============================================= */

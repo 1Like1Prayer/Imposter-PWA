@@ -91,6 +91,10 @@
   padding: clamp(14px, 4vw, 16px) clamp(24px, 7vw, 32px);
 }
 
+[dir="rtl"] .menu-buttons .btn svg {
+  transform: scaleX(-1);
+}
+
 /* Small screens */
 @media (max-width: 374px) {
   .menu-buttons {

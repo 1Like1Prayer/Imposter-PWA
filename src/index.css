@@ -111,6 +111,11 @@ body::-webkit-scrollbar {
   margin-bottom: 24px;
 }
 
+[dir="rtl"] .screen-header .btn-icon svg,
+[dir="rtl"] .screen-actions .btn svg {
+  transform: scaleX(-1);
+}
+
 .screen-title {
   font-size: clamp(20px, 5.5vw, 24px);
   font-weight: 700;
