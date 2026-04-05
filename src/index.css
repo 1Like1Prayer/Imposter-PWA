@@ -1,0 +1,320 @@
+:root {
+  /* Dark mysterious theme for the imposter game */
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #12122a;
+  --bg-card: #1a1a3e;
+  --bg-card-hover: #222255;
+  --bg-input: #15153a;
+
+  --text-primary: #e8e8ff;
+  --text-secondary: #9999cc;
+  --text-muted: #6666aa;
+
+  --accent: #ff4d6d;
+  --accent-hover: #ff6b85;
+  --accent-glow: rgba(255, 77, 109, 0.3);
+
+  --secondary-accent: #7b61ff;
+  --secondary-glow: rgba(123, 97, 255, 0.3);
+
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #ef4444;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(123, 97, 255, 0.5);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px var(--accent-glow);
+
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  /* Safe area insets for notched phones */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Prevent pull-to-refresh and overscroll bounce on mobile */
+  overscroll-behavior: none;
+  /* Remove 300ms tap delay */
+  touch-action: manipulation;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--bg-primary);
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  /* Prevent text size adjust on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Shared UI classes ---- */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: calc(24px + var(--safe-top)) calc(20px + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(20px + var(--safe-left));
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.screen-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: manipulation;
+  /* Minimum touch target size per UX guidelines: 44x44 */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-primary:disabled {
+  background: #333355;
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* Focus-visible outlines for keyboard navigation */
+.btn:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--secondary-accent);
+  outline-offset: 2px;
+}
+
+/* Bottom action area — sticks to bottom of screen */
+.screen-actions {
+  margin-top: auto;
+  padding-top: 24px;
+  padding-bottom: var(--safe-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Input styles */
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  /* 16px prevents iOS zoom on focus */
+  font-size: 16px;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.2s ease;
+  min-height: 44px;
+}
+
+.input:focus {
+  border-color: var(--border-active);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Helper text */
+.helper-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Badge / pill */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.badge-accent {
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+/* Icon sizing helpers */
+.icon-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-md {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-lg {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-xl {
+  width: 48px;
+  height: 48px;
+}
+
+.icon-hero {
+  width: 64px;
+  height: 64px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Respect user's motion preferences — HIGH severity per UX guidelines */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Small screen adjustments (320px-375px) */
+@media (max-width: 374px) {
+  .screen-title {
+    font-size: 20px;
+  }
+
+  .btn {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}

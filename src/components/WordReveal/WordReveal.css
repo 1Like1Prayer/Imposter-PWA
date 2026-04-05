@@ -1,0 +1,173 @@
+.word-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100dvh;
+  padding: calc(24px + var(--safe-top)) calc(20px + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(20px + var(--safe-left));
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.reveal-progress {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.reveal-player-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.reveal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 220px;
+  padding: 32px 24px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  text-align: center;
+}
+
+.reveal-card:active {
+  transform: scale(0.98);
+}
+
+.reveal-card.revealed {
+  cursor: pointer;
+}
+
+.reveal-card.is-imposter {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px var(--accent-glow);
+}
+
+.reveal-card.is-normal {
+  border-color: var(--success);
+  box-shadow: 0 0 24px rgba(74, 222, 128, 0.2);
+}
+
+.reveal-tap-hint {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.reveal-tap-icon {
+  color: var(--text-secondary);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.reveal-role-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.reveal-role-icon.imposter-icon {
+  color: var(--accent);
+}
+
+.reveal-role-icon.safe-icon {
+  color: var(--success);
+}
+
+.reveal-role {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.reveal-role.imposter {
+  color: var(--accent);
+}
+
+.reveal-role.normal {
+  color: var(--success);
+}
+
+.reveal-word {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.reveal-hint-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reveal-hint {
+  font-size: 20px;
+  color: var(--warning);
+  font-weight: 600;
+}
+
+.reveal-warning {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+/* All revealed — game ready */
+.game-ready {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex: 1;
+  text-align: center;
+}
+
+.game-ready-icon {
+  color: var(--secondary-accent);
+  filter: drop-shadow(0 0 12px var(--secondary-glow));
+}
+
+.game-ready-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.game-ready-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* Small screens */
+@media (max-width: 374px) {
+  .reveal-player-name {
+    font-size: 24px;
+  }
+
+  .reveal-word {
+    font-size: 26px;
+  }
+
+  .game-ready-title {
+    font-size: 24px;
+  }
+}
