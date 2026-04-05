@@ -1,7 +1,7 @@
 .category-select {
   display: flex;
   flex-direction: column;
-  height: 85dvh;
+  height: 100dvh;
   padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top))
     calc(clamp(12px, 5vw, 20px) + var(--safe-right)) 0
     calc(clamp(12px, 5vw, 20px) + var(--safe-left));
