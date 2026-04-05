@@ -1,6 +1,6 @@
 import type { CategoryName, Player } from '../../types/game';
 import { getMaxImposterCount } from '../../utils/gameLogic';
-import { SETTINGS } from '../../copies';
+import { useTranslation } from 'react-i18next';
 import { ScreenHeader, ScreenActions, GamepadIcon } from '../shared';
 import ImposterCounter from './ImposterCounter';
 import GameSummary from './GameSummary';
@@ -25,11 +25,12 @@ export default function GameSettings({
   onStartGame,
   onBack,
 }: GameSettingsProps) {
+  const { t } = useTranslation();
   const maxImposters = getMaxImposterCount(players.length);
 
   return (
     <div className="game-settings animate-in">
-      <ScreenHeader title={SETTINGS.SCREEN_TITLE} onBack={onBack} />
+      <ScreenHeader title={t('gameSettings')} onBack={onBack} />
 
       <ImposterCounter
         count={imposterCount}
@@ -49,7 +50,7 @@ export default function GameSettings({
       <ScreenActions>
         <button className="btn btn-primary btn-full" onClick={onStartGame}>
           <GamepadIcon size={20} />
-          {SETTINGS.START_GAME}
+          {t('startGame')}
         </button>
       </ScreenActions>
     </div>

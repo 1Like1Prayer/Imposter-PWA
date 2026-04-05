@@ -1,5 +1,5 @@
 import type { Player } from '../../types/game';
-import { PLAYERS, COMMON } from '../../copies';
+import { useTranslation } from 'react-i18next';
 import { ScreenHeader, ScreenActions, ArrowRightIcon } from '../shared';
 import PlayerInputForm from './PlayerInputForm';
 import PlayerList from './PlayerList';
@@ -24,18 +24,19 @@ export default function PlayerSetup({
   onContinue,
   onBack,
 }: PlayerSetupProps) {
+  const { t } = useTranslation();
   const playersNeeded = MIN_PLAYERS - players.length;
 
   return (
     <div className="player-setup animate-in">
-      <ScreenHeader title={PLAYERS.SCREEN_TITLE} onBack={onBack} />
+      <ScreenHeader title={t('addPlayers')} onBack={onBack} />
 
       <PlayerInputForm onAddPlayer={onAddPlayer} />
 
       <p className="player-count">
-        {PLAYERS.PLAYER_COUNT(players.length)}
+        {t('countPlayervalAdded', { count: players.length })}
         {playersNeeded > 0 && (
-          <span> {PLAYERS.NEED_MORE(playersNeeded)}</span>
+          <span> {t('needNeededMoreToStart', { needed: playersNeeded })}</span>
         )}
       </p>
 
@@ -47,7 +48,7 @@ export default function PlayerSetup({
           disabled={!canContinue}
           onClick={onContinue}
         >
-          {COMMON.CONTINUE}
+          {t('continue')}
           <ArrowRightIcon size={18} />
         </button>
       </ScreenActions>

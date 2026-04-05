@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { PLAYERS } from '../../copies';
+import { useTranslation } from 'react-i18next';
 
 interface PlayerInputFormProps {
   onAddPlayer: (name: string) => boolean;
@@ -7,6 +7,7 @@ interface PlayerInputFormProps {
 
 /** Form with text input and add button for entering new players */
 export default function PlayerInputForm({ onAddPlayer }: PlayerInputFormProps) {
+  const { t } = useTranslation();
   const [inputValue, setInputValue] = useState('');
 
   function handleSubmit(event: FormEvent) {
@@ -20,7 +21,7 @@ export default function PlayerInputForm({ onAddPlayer }: PlayerInputFormProps) {
       <input
         className="input"
         type="text"
-        placeholder={PLAYERS.INPUT_PLACEHOLDER}
+        placeholder={t('enterPlayerName')}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         enterKeyHint="done"
@@ -30,7 +31,7 @@ export default function PlayerInputForm({ onAddPlayer }: PlayerInputFormProps) {
         type="submit"
         disabled={!inputValue.trim()}
       >
-        {PLAYERS.ADD_BUTTON}
+        {t('add')}
       </button>
     </form>
   );

@@ -1,4 +1,4 @@
-import { SETTINGS } from '../../copies';
+import { useTranslation } from 'react-i18next';
 import { PlusIcon, MinusIcon } from '../shared/Icons';
 
 interface ImposterCounterProps {
@@ -19,16 +19,17 @@ export default function ImposterCounter({
   playerCount,
   onChange,
 }: ImposterCounterProps) {
+  const { t } = useTranslation();
   return (
     <div className="settings-card">
-      <p className="settings-label">{SETTINGS.IMPOSTER_LABEL}</p>
+      <p className="settings-label">{t('numberOfImposters')}</p>
 
       <div className="imposter-control">
         <button
           className="imposter-btn"
           onClick={() => onChange(count - 1)}
           disabled={count <= min}
-          aria-label="Decrease imposter count"
+          aria-label={t('decreaseImposterCount')}
         >
           <MinusIcon size={20} />
         </button>
@@ -39,14 +40,18 @@ export default function ImposterCounter({
           className="imposter-btn"
           onClick={() => onChange(count + 1)}
           disabled={count >= max}
-          aria-label="Increase imposter count"
+          aria-label={t('increaseImposterCount')}
         >
           <PlusIcon size={20} />
         </button>
       </div>
 
       <p className="settings-recommendation">
-        {SETTINGS.RECOMMENDATION(defaultCount, playerCount)}
+        {t('recommendedDefaultcountImpostervalForPlayercountPlayers', {
+          defaultCount,
+          val: defaultCount !== 1 ? 's' : '',
+          playerCount,
+        })}
       </p>
     </div>
   );

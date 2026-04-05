@@ -1,5 +1,5 @@
 import type { Player } from '../../types/game';
-import { PLAYERS } from '../../copies';
+import { useTranslation } from 'react-i18next';
 import PlayerChip from './PlayerChip';
 
 const MIN_PLAYERS = 3;
@@ -11,11 +11,12 @@ interface PlayerListProps {
 
 /** Scrollable list of added players, or empty-state hint */
 export default function PlayerList({ players, onRemovePlayer }: PlayerListProps) {
+  const { t } = useTranslation();
   return (
     <div className="player-list">
       {players.length === 0 && (
         <div className="min-players-hint">
-          {PLAYERS.EMPTY_HINT(MIN_PLAYERS)}
+          {t('addAtLeastMinplayersPlayersToBegin', { minPlayers: MIN_PLAYERS })}
         </div>
       )}
 

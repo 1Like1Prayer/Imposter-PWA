@@ -1,5 +1,5 @@
 import type { CategoryName } from '../../types/game';
-import { SETTINGS } from '../../copies';
+import { useTranslation } from 'react-i18next';
 import { UsersIcon, FolderIcon, UserSearchIcon } from '../shared/Icons';
 import type { ReactNode } from 'react';
 
@@ -21,10 +21,11 @@ export default function GameSummary({
   selectedCategories,
   imposterCount,
 }: GameSummaryProps) {
+  const { t } = useTranslation();
   const items: SummaryItem[] = [
-    { icon: <UsersIcon size={18} />, label: SETTINGS.SUMMARY_PLAYERS, value: playerCount },
-    { icon: <FolderIcon size={18} />, label: SETTINGS.SUMMARY_CATEGORIES, value: selectedCategories.join(', ') },
-    { icon: <UserSearchIcon size={18} />, label: SETTINGS.SUMMARY_IMPOSTERS, value: imposterCount },
+    { icon: <UsersIcon size={18} />, label: t('players'), value: playerCount },
+    { icon: <FolderIcon size={18} />, label: t('categories'), value: selectedCategories.join(', ') },
+    { icon: <UserSearchIcon size={18} />, label: t('imposters'), value: imposterCount },
   ];
 
   return (
