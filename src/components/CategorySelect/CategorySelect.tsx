@@ -29,33 +29,35 @@ export default function CategorySelect({
     <div className="category-select animate-in">
       <ScreenHeader title={t('categories.title')} onBack={onBack} />
 
-      <p className="category-instruction">
-        {t('categories.instruction', { maxCategories: MAX_CATEGORIES })}
-      </p>
+      <div className="category-scrollable">
+        <p className="category-instruction">
+          {t('categories.instruction', { maxCategories: MAX_CATEGORIES })}
+        </p>
 
-      <div className="category-grid">
-        {getCategories().map((category) => {
-          const isSelected = selectedCategories.includes(category.name);
-          const isDisabled = !isSelected && isMaxSelected;
+        <div className="category-grid">
+          {getCategories().map((category) => {
+            const isSelected = selectedCategories.includes(category.name);
+            const isDisabled = !isSelected && isMaxSelected;
 
-          return (
-            <CategoryCard
-              key={category.name}
-              category={category}
-              isSelected={isSelected}
-              isDisabled={isDisabled}
-              onToggle={() => onToggleCategory(category.name)}
-            />
-          );
-        })}
+            return (
+              <CategoryCard
+                key={category.name}
+                category={category}
+                isSelected={isSelected}
+                isDisabled={isDisabled}
+                onToggle={() => onToggleCategory(category.name)}
+              />
+            );
+          })}
+        </div>
+
+        <p className="selected-count">
+          {t('categories.selectedCount', {
+            selected: selectedCategories.length,
+            max: MAX_CATEGORIES
+          })}
+        </p>
       </div>
-
-      <p className="selected-count">
-        {t('categories.selectedCount', {
-          selected: selectedCategories.length,
-          max: MAX_CATEGORIES
-        })}
-      </p>
 
       <ScreenActions>
         <button
