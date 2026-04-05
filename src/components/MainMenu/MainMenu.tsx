@@ -15,17 +15,17 @@ export default function MainMenu({ onPlay, onRules }: MainMenuProps) {
         <div className="menu-icon">
           <SpyIcon size={64} className="icon-hero-spy" />
         </div>
-        <h1 className="menu-title">{t('imposter')}</h1>
-        <p className="menu-subtitle">{t('findTheImposterAmongYou')}</p>
+        <h1 className="menu-title">{t('menu.title')}</h1>
+        <p className="menu-subtitle">{t('menu.subtitle')}</p>
 
         <div className="menu-buttons">
           <button className="btn btn-primary btn-full" onClick={onPlay}>
             <PlayIcon size={20} />
-            {t('play')}
+            {t('menu.play')}
           </button>
           <button className="btn btn-secondary btn-full" onClick={onRules}>
             <BookOpenIcon size={20} />
-            {t('gameRules')}
+            {t('rules.title')}
           </button>
         </div>
       </div>

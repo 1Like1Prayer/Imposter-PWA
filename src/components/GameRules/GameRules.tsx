@@ -4,13 +4,13 @@ import RuleItem from './RuleItem';
 import './GameRules.css';
 
 const RULE_KEYS = [
-  'oneStrongsecretWordstrongIsChosenAtRandomFromTheSelectedCategories',
-  'everyoneSeesTheWordStrongexceptTheImposterstrong',
-  'theImposterIsGivenAStronghintstrongInsteadOfTheActualWord',
-  'eachPlayerGivesStrongonewordCluesstrongToProveTheyKnowTheWord',
-  'afterStrong23RoundsstrongOfCluesTheGroupVotesOnWhoTheImposterIs',
-  'ifTheImposterIsStrongcaughtstrongTheGroupWins',
-  'ifStrongnotCaughtstrongTheImposterCanGuessTheSecretWordAtAnyTimeAndStrongwinTheGamestrong',
+  'rules.step1',
+  'rules.step2',
+  'rules.step3',
+  'rules.step4',
+  'rules.step5',
+  'rules.step6',
+  'rules.step7',
 ] as const;
 
 interface GameRulesProps {
@@ -21,7 +21,7 @@ export default function GameRules({ onBack }: GameRulesProps) {
   const { t } = useTranslation();
   return (
     <div className="game-rules animate-in">
-      <ScreenHeader title={t('gameRules')} onBack={onBack} />
+      <ScreenHeader title={t('rules.title')} onBack={onBack} />
 
       <div className="rules-list">
         {RULE_KEYS.map((key, index) => (
@@ -32,7 +32,7 @@ export default function GameRules({ onBack }: GameRulesProps) {
       <ScreenActions>
         <button className="btn btn-secondary btn-full" onClick={onBack}>
           <ArrowLeftIcon size={18} />
-          {t('backToMenu')}
+          {t('common.backToMenu')}
         </button>
       </ScreenActions>
     </div>

@@ -22,14 +22,14 @@ export default function ImposterCounter({
   const { t } = useTranslation();
   return (
     <div className="settings-card">
-      <p className="settings-label">{t('numberOfImposters')}</p>
+      <p className="settings-label">{t('settings.imposterLabel')}</p>
 
       <div className="imposter-control">
         <button
           className="imposter-btn"
           onClick={() => onChange(count - 1)}
           disabled={count <= min}
-          aria-label={t('decreaseImposterCount')}
+          aria-label={t('settings.decrease')}
         >
           <MinusIcon size={20} />
         </button>
@@ -40,14 +40,14 @@ export default function ImposterCounter({
           className="imposter-btn"
           onClick={() => onChange(count + 1)}
           disabled={count >= max}
-          aria-label={t('increaseImposterCount')}
+          aria-label={t('settings.increase')}
         >
           <PlusIcon size={20} />
         </button>
       </div>
 
       <p className="settings-recommendation">
-        {t('recommendedDefaultcountImpostervalForPlayercountPlayers', {
+        {t('settings.recommendation', {
           defaultCount,
           val: defaultCount !== 1 ? 's' : '',
           playerCount,

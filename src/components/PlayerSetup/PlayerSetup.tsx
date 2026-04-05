@@ -29,14 +29,14 @@ export default function PlayerSetup({
 
   return (
     <div className="player-setup animate-in">
-      <ScreenHeader title={t('addPlayers')} onBack={onBack} />
+      <ScreenHeader title={t('players.title')} onBack={onBack} />
 
       <PlayerInputForm onAddPlayer={onAddPlayer} />
 
       <p className="player-count">
-        {t('countPlayervalAdded', { count: players.length })}
+        {t('players.count', { count: players.length })}
         {playersNeeded > 0 && (
-          <span> {t('needNeededMoreToStart', { needed: playersNeeded })}</span>
+          <span> {t('players.needMore', { needed: playersNeeded })}</span>
         )}
       </p>
 
@@ -48,7 +48,7 @@ export default function PlayerSetup({
           disabled={!canContinue}
           onClick={onContinue}
         >
-          {t('continue')}
+          {t('common.continue')}
           <ArrowRightIcon size={18} />
         </button>
       </ScreenActions>

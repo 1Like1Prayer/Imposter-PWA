@@ -54,7 +54,7 @@ export default function RevealCard({
           if (!isFlipped) onFlip();
         }
       }}
-      aria-label={isFlipped ? t('playernamesRoleRevealed', { playerName }) : t('tapToRevealYourRole')}
+      aria-label={isFlipped ? t('reveal.roleRevealed', { playerName }) : t('reveal.tapToReveal')}
     >
       <div className="reveal-card-inner">
         <div className="reveal-card-flip" style={flipStyle}>
@@ -64,8 +64,8 @@ export default function RevealCard({
             <span className="reveal-tap-icon">
               <TapIcon size={48} />
             </span>
-            <span className="reveal-tap-hint">{t('clickOrSwipeToSeeYourWord')}</span>
-            <p className="reveal-warning">{t('makeSureNoOneElseIsLooking')}</p>
+            <span className="reveal-tap-hint">{t('reveal.tapHint')}</span>
+            <p className="reveal-warning">{t('reveal.privacyWarning')}</p>
           </div>
 
           {/* ===== BACK FACE — revealed content ===== */}
@@ -82,8 +82,8 @@ export default function RevealCard({
                 <span className="reveal-role-icon imposter-icon">
                   <UserSearchIcon size={40} />
                 </span>
-                <span className="reveal-role imposter">{t('youAreTheImposter')}</span>
-                <span className="reveal-hint-label">{t('yourHint')}</span>
+                <span className="reveal-role imposter">{t('reveal.roleImposter')}</span>
+                <span className="reveal-hint-label">{t('reveal.hintLabel')}</span>
                 <span className="reveal-hint">{gameRound.hint}</span>
               </>
             ) : (
@@ -91,14 +91,14 @@ export default function RevealCard({
                 <span className="reveal-role-icon safe-icon">
                   <ShieldCheckIcon size={40} />
                 </span>
-                <span className="reveal-role normal">{t('youAreSafe')}</span>
+                <span className="reveal-role normal">{t('reveal.roleSafe')}</span>
                 <span className="reveal-word">{gameRound.secretWord}</span>
               </>
             )}
 
             <div className="reveal-swipe-hint">
               <SwipeIcon size={20} />
-              <span>{t('swipeToPassToNextPlayer')}</span>
+              <span>{t('reveal.swipeHint')}</span>
             </div>
           </div>
         </div>

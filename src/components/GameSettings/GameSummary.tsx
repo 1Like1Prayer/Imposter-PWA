@@ -23,9 +23,9 @@ export default function GameSummary({
 }: GameSummaryProps) {
   const { t } = useTranslation();
   const items: SummaryItem[] = [
-    { icon: <UsersIcon size={18} />, label: t('players'), value: playerCount },
-    { icon: <FolderIcon size={18} />, label: t('categories'), value: selectedCategories.join(', ') },
-    { icon: <UserSearchIcon size={18} />, label: t('imposters'), value: imposterCount },
+    { icon: <UsersIcon size={18} />, label: t('settings.players'), value: playerCount },
+    { icon: <FolderIcon size={18} />, label: t('settings.categories'), value: selectedCategories.map((c) => t(`categories.${c.toLowerCase()}.name`)).join(', ') },
+    { icon: <UserSearchIcon size={18} />, label: t('settings.imposters'), value: imposterCount },
   ];
 
   return (

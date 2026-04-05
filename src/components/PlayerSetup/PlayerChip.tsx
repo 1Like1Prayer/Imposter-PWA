@@ -17,7 +17,7 @@ export default function PlayerChip({ index, name, onRemove }: PlayerChipProps) {
       <button
         className="player-chip-remove"
         onClick={onRemove}
-        aria-label={t('removeName', { name })}
+        aria-label={t('players.removeLabel', { name })}
       >
         <XIcon size={16} />
       </button>

@@ -27,10 +27,10 @@ export default function CategorySelect({
 
   return (
     <div className="category-select animate-in">
-      <ScreenHeader title={t('chooseCategories')} onBack={onBack} />
+      <ScreenHeader title={t('categories.title')} onBack={onBack} />
 
       <p className="category-instruction">
-        {t('selectUpToMaxcategoriesCategoriesForTheWordPool', { maxCategories: MAX_CATEGORIES })}
+        {t('categories.instruction', { maxCategories: MAX_CATEGORIES })}
       </p>
 
       <div className="category-grid">
@@ -51,7 +51,7 @@ export default function CategorySelect({
       </div>
 
       <p className="selected-count">
-        {t('selectedMaxSelected', { selected: selectedCategories.length, max: MAX_CATEGORIES })}
+        {t('categories.selectedCount', { selected: selectedCategories.length, max: MAX_CATEGORIES })}
       </p>
 
       <ScreenActions>
@@ -60,7 +60,7 @@ export default function CategorySelect({
           disabled={!canContinue}
           onClick={onContinue}
         >
-          {t('continue')}
+          {t('common.continue')}
           <ArrowRightIcon size={18} />
         </button>
       </ScreenActions>

@@ -30,7 +30,7 @@ export default function GameSettings({
 
   return (
     <div className="game-settings animate-in">
-      <ScreenHeader title={t('gameSettings')} onBack={onBack} />
+      <ScreenHeader title={t('settings.title')} onBack={onBack} />
 
       <ImposterCounter
         count={imposterCount}
@@ -50,7 +50,7 @@ export default function GameSettings({
       <ScreenActions>
         <button className="btn btn-primary btn-full" onClick={onStartGame}>
           <GamepadIcon size={20} />
-          {t('startGame')}
+          {t('settings.startGame')}
         </button>
       </ScreenActions>
     </div>

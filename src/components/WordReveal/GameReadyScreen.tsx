@@ -18,18 +18,18 @@ export default function GameReadyScreen({
         <div className="game-ready-icon">
           <MasksIcon size={64} />
         </div>
-        <h2 className="game-ready-title">{t('everyonesReady')}</h2>
-        <p className="game-ready-subtitle">{t('startGivingOnewordCluesAfter23RoundsVoteOnWhoTheImposterIs')}</p>
+        <h2 className="game-ready-title">{t('reveal.readyTitle')}</h2>
+        <p className="game-ready-subtitle">{t('reveal.readySubtitle')}</p>
       </div>
 
       <ScreenActions>
         <button className="btn btn-primary btn-full" onClick={onRestart}>
           <RefreshIcon size={20} />
-          {t('restart')}
+          {t('common.restart')}
         </button>
         <button className="btn btn-secondary btn-full" onClick={onBackToMenu}>
           <ArrowLeftIcon size={18} />
-          {t('backToMenu')}
+          {t('common.backToMenu')}
         </button>
       </ScreenActions>
     </div>

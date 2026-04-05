@@ -21,7 +21,7 @@ export default function PlayerInputForm({ onAddPlayer }: PlayerInputFormProps) {
       <input
         className="input"
         type="text"
-        placeholder={t('enterPlayerName')}
+        placeholder={t('players.placeholder')}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         enterKeyHint="done"
@@ -31,7 +31,7 @@ export default function PlayerInputForm({ onAddPlayer }: PlayerInputFormProps) {
         type="submit"
         disabled={!inputValue.trim()}
       >
-        {t('add')}
+        {t('players.add')}
       </button>
     </form>
   );

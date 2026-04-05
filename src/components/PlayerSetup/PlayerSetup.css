@@ -36,6 +36,7 @@
   flex-direction: column;
   gap: 8px;
   flex: 1;
+  max-height: 60dvh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   /* Prevent pull-to-refresh when scrolling the list */

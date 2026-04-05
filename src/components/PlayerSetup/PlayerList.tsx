@@ -16,7 +16,7 @@ export default function PlayerList({ players, onRemovePlayer }: PlayerListProps)
     <div className="player-list">
       {players.length === 0 && (
         <div className="min-players-hint">
-          {t('addAtLeastMinplayersPlayersToBegin', { minPlayers: MIN_PLAYERS })}
+          {t('players.emptyHint', { minPlayers: MIN_PLAYERS })}
         </div>
       )}
 

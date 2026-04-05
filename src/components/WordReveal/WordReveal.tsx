@@ -80,7 +80,7 @@ export default function WordReveal({
       <button
         className="btn btn-ghost btn-icon reveal-back-btn"
         onClick={onBackToSettings}
-        aria-label={t('backToSettings')}
+        aria-label={t('common.backToSettings')}
       >
         <ArrowLeftIcon size={24} />
       </button>
@@ -100,7 +100,7 @@ export default function WordReveal({
       {/* Bottom nav — visible once card is flipped */}
       <div className={`reveal-actions${isFlipped ? ' visible' : ''}`}>
         <button className="btn btn-primary reveal-next-btn" onClick={handleNextPlayer}>
-          {isLastPlayer ? t('everyoneHasSeenTheirWord') : t('next')}
+          {isLastPlayer ? t('reveal.allSeen') : t('common.next')}
           <ArrowRightIcon size={18} />
         </button>
       </div>

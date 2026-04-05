@@ -11,7 +11,7 @@ export default function ScreenHeader({ title, onBack }: ScreenHeaderProps) {
   const { t } = useTranslation()
   return (
     <div className="screen-header">
-      <button className="btn btn-ghost btn-icon" onClick={onBack} aria-label={t('goBack', 'Go back')}>
+      <button className="btn btn-ghost btn-icon" onClick={onBack} aria-label={t('common.goBack')}>
         <ArrowLeftIcon size={24} />
       </button>
       <h2 className="screen-title">{title}</h2>
