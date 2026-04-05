@@ -1,5 +1,8 @@
 import type { CategoryName, GameRound, Player } from '../types/game';
-import WORD_LISTS, { type WordEntry } from '../data/wordLists';
+import RAW_WORD_LISTS, {
+  translateWord,
+  type WordEntry
+} from '../data/wordLists';
 
 /** Fisher-Yates shuffle - returns a new shuffled array */
 export function shuffle<T>(array: T[]): T[] {
@@ -17,20 +20,20 @@ export function pickRandom<T>(array: T[], count: number): T[] {
 }
 
 /**
- * Compile a pool of 12 words from the selected categories.
- * - 1 category → 12 words
- * - 2 categories → 6 words each
- * - 3 categories → 4 words each
+ * Compile a pool of 12 translated words from the selected categories.
+ * Translation happens here at game-start time, not at module load.
  */
-export function compileWordPool(selectedCategories: CategoryName[]): WordEntry[] {
+export function compileWordPool(
+  selectedCategories: CategoryName[]
+): WordEntry[] {
   const categoryCount = selectedCategories.length;
   const wordsPerCategory = Math.floor(12 / categoryCount);
 
   const pool: WordEntry[] = [];
   for (const category of selectedCategories) {
-    const categoryWords = WORD_LISTS[category];
-    const picked = pickRandom(categoryWords, wordsPerCategory);
-    pool.push(...picked);
+    const rawWords = RAW_WORD_LISTS[category];
+    const picked = pickRandom(rawWords, wordsPerCategory);
+    pool.push(...picked.map(translateWord));
   }
 
   return shuffle(pool);
@@ -50,7 +53,7 @@ export function getMaxImposterCount(playerCount: number): number {
 export function createGameRound(
   players: Player[],
   selectedCategories: CategoryName[],
-  imposterCount: number,
+  imposterCount: number
 ): GameRound {
   const wordPool = compileWordPool(selectedCategories);
 
@@ -67,7 +70,7 @@ export function createGameRound(
     secretWord: secretEntry.word,
     hint: secretEntry.hint,
     imposterIds,
-    wordPool: wordPool.map((entry) => entry.word),
+    wordPool: wordPool.map((entry) => entry.word)
   };
 }
 

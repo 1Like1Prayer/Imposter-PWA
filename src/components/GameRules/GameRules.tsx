@@ -10,7 +10,7 @@ const RULE_KEYS = [
   'rules.step4',
   'rules.step5',
   'rules.step6',
-  'rules.step7',
+  'rules.step7'
 ] as const;
 
 interface GameRulesProps {

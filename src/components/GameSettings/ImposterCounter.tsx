@@ -17,7 +17,7 @@ export default function ImposterCounter({
   max,
   defaultCount,
   playerCount,
-  onChange,
+  onChange
 }: ImposterCounterProps) {
   const { t } = useTranslation();
   return (
@@ -50,7 +50,7 @@ export default function ImposterCounter({
         {t('settings.recommendation', {
           defaultCount,
           val: defaultCount !== 1 ? 's' : '',
-          playerCount,
+          playerCount
         })}
       </p>
     </div>

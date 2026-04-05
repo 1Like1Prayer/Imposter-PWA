@@ -1,5 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { ScreenActions, MasksIcon, RefreshIcon, ArrowLeftIcon } from '../shared';
+import {
+  ScreenActions,
+  MasksIcon,
+  RefreshIcon,
+  ArrowLeftIcon
+} from '../shared';
 
 interface GameReadyScreenProps {
   onRestart: () => void;
@@ -9,7 +14,7 @@ interface GameReadyScreenProps {
 /** Shown after all players have seen their word — ready to start playing */
 export default function GameReadyScreen({
   onRestart,
-  onBackToMenu,
+  onBackToMenu
 }: GameReadyScreenProps) {
   const { t } = useTranslation();
   return (

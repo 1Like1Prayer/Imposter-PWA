@@ -1,6 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import type { GameRound } from '../../types/game';
-import { TapIcon, UserSearchIcon, ShieldCheckIcon, SwipeIcon } from '../shared/Icons';
+import {
+  TapIcon,
+  UserSearchIcon,
+  ShieldCheckIcon,
+  SwipeIcon
+} from '../shared/Icons';
 import useCardFlipSwipe from '../../hooks/useCardFlipSwipe';
 
 interface RevealCardProps {
@@ -24,17 +29,22 @@ export default function RevealCard({
   slideIn,
   onFlip,
   onSwipeNext,
-  onSlideInEnd,
+  onSlideInEnd
 }: RevealCardProps) {
   const { t } = useTranslation();
-  const { touchHandlers, flipStyle, isDragging, dismissStyle, backFaceTransform } =
-    useCardFlipSwipe({ isFlipped, noTransition, onFlip, onSwipeNext });
+  const {
+    touchHandlers,
+    flipStyle,
+    isDragging,
+    dismissStyle,
+    backFaceTransform
+  } = useCardFlipSwipe({ isFlipped, noTransition, onFlip, onSwipeNext });
 
   const containerClass = [
     'reveal-card-container',
     isFlipped && 'flipped',
     noTransition && 'no-transition',
-    slideIn && 'slide-in',
+    slideIn && 'slide-in'
   ]
     .filter(Boolean)
     .join(' ');
@@ -54,7 +64,11 @@ export default function RevealCard({
           if (!isFlipped) onFlip();
         }
       }}
-      aria-label={isFlipped ? t('reveal.roleRevealed', { playerName }) : t('reveal.tapToReveal')}
+      aria-label={
+        isFlipped
+          ? t('reveal.roleRevealed', { playerName })
+          : t('reveal.tapToReveal')
+      }
     >
       <div className="reveal-card-inner">
         <div className="reveal-card-flip" style={flipStyle}>
@@ -82,8 +96,12 @@ export default function RevealCard({
                 <span className="reveal-role-icon imposter-icon">
                   <UserSearchIcon size={40} />
                 </span>
-                <span className="reveal-role imposter">{t('reveal.roleImposter')}</span>
-                <span className="reveal-hint-label">{t('reveal.hintLabel')}</span>
+                <span className="reveal-role imposter">
+                  {t('reveal.roleImposter')}
+                </span>
+                <span className="reveal-hint-label">
+                  {t('reveal.hintLabel')}
+                </span>
                 <span className="reveal-hint">{gameRound.hint}</span>
               </>
             ) : (
@@ -91,7 +109,9 @@ export default function RevealCard({
                 <span className="reveal-role-icon safe-icon">
                   <ShieldCheckIcon size={40} />
                 </span>
-                <span className="reveal-role normal">{t('reveal.roleSafe')}</span>
+                <span className="reveal-role normal">
+                  {t('reveal.roleSafe')}
+                </span>
                 <span className="reveal-word">{gameRound.secretWord}</span>
               </>
             )}

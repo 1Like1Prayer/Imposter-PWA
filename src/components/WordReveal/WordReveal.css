@@ -3,7 +3,10 @@
   flex-direction: column;
   align-items: center;
   height: 100dvh;
-  padding: calc(clamp(10px, 2.5vw, 16px) + var(--safe-top)) calc(clamp(8px, 2.5vw, 10px) + var(--safe-right)) calc(clamp(10px, 2.5vw, 16px) + var(--safe-bottom)) calc(clamp(8px, 2.5vw, 10px) + var(--safe-left));
+  padding: calc(clamp(10px, 2.5vw, 16px) + var(--safe-top))
+    calc(clamp(8px, 2.5vw, 10px) + var(--safe-right))
+    calc(clamp(10px, 2.5vw, 16px) + var(--safe-bottom))
+    calc(clamp(8px, 2.5vw, 10px) + var(--safe-left));
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
@@ -95,7 +98,9 @@
 .reveal-card-front {
   background: var(--bg-card);
   border: 2px solid var(--border);
-  transition: box-shadow 0.15s ease-out, border-color 0.15s ease-out;
+  transition:
+    box-shadow 0.15s ease-out,
+    border-color 0.15s ease-out;
 }
 
 .reveal-card-container:not(.flipped):active .reveal-card-front {
@@ -141,12 +146,16 @@
 
 .reveal-card-back.is-imposter {
   border-color: var(--accent);
-  box-shadow: 0 0 32px var(--accent-glow), inset 0 0 60px rgba(255, 77, 109, 0.05);
+  box-shadow:
+    0 0 32px var(--accent-glow),
+    inset 0 0 60px rgba(255, 77, 109, 0.05);
 }
 
 .reveal-card-back.is-normal {
   border-color: var(--success);
-  box-shadow: 0 0 32px rgba(74, 222, 128, 0.2), inset 0 0 60px rgba(74, 222, 128, 0.03);
+  box-shadow:
+    0 0 32px rgba(74, 222, 128, 0.2),
+    inset 0 0 60px rgba(74, 222, 128, 0.03);
 }
 
 /* ===== Role & word typography ===== */
@@ -248,15 +257,15 @@
 }
 
 /* RTL fixes for the reveal screen */
-[dir="rtl"] .reveal-back-btn svg {
+[dir='rtl'] .reveal-back-btn svg {
   transform: scaleX(-1);
 }
 
-[dir="rtl"] .reveal-next-btn svg {
+[dir='rtl'] .reveal-next-btn svg {
   transform: scaleX(-1);
 }
 
-[dir="rtl"] .reveal-swipe-hint {
+[dir='rtl'] .reveal-swipe-hint {
   flex-direction: row-reverse;
 }
 

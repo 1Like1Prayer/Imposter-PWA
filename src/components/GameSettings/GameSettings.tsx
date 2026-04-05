@@ -23,7 +23,7 @@ export default function GameSettings({
   defaultImposterCount,
   onChangeImposterCount,
   onStartGame,
-  onBack,
+  onBack
 }: GameSettingsProps) {
   const { t } = useTranslation();
   const maxImposters = getMaxImposterCount(players.length);

@@ -22,7 +22,7 @@ export default function PlayerSetup({
   onRemovePlayer,
   canContinue,
   onContinue,
-  onBack,
+  onBack
 }: PlayerSetupProps) {
   const { t } = useTranslation();
   const playersNeeded = MIN_PLAYERS - players.length;

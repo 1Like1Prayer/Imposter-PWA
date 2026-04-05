@@ -13,13 +13,13 @@ export default function CategoryCard({
   category,
   isSelected,
   isDisabled,
-  onToggle,
+  onToggle
 }: CategoryCardProps) {
   const { t } = useTranslation();
   const className = [
     'category-card',
     isSelected && 'selected',
-    isDisabled && 'disabled',
+    isDisabled && 'disabled'
   ]
     .filter(Boolean)
     .join(' ');
@@ -31,8 +31,12 @@ export default function CategoryCard({
       disabled={isDisabled}
     >
       <span className="category-emoji">{category.emoji}</span>
-      <span className="category-name">{t(`categories.${category.name.toLowerCase()}.name`)}</span>
-      <span className="category-desc">{t(`categories.${category.name.toLowerCase()}.desc`)}</span>
+      <span className="category-name">
+        {t(`categories.${category.name.toLowerCase()}.name`)}
+      </span>
+      <span className="category-desc">
+        {t(`categories.${category.name.toLowerCase()}.desc`)}
+      </span>
     </button>
   );
 }

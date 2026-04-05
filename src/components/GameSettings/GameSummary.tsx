@@ -19,13 +19,27 @@ interface GameSummaryProps {
 export default function GameSummary({
   playerCount,
   selectedCategories,
-  imposterCount,
+  imposterCount
 }: GameSummaryProps) {
   const { t } = useTranslation();
   const items: SummaryItem[] = [
-    { icon: <UsersIcon size={18} />, label: t('settings.players'), value: playerCount },
-    { icon: <FolderIcon size={18} />, label: t('settings.categories'), value: selectedCategories.map((c) => t(`categories.${c.toLowerCase()}.name`)).join(', ') },
-    { icon: <UserSearchIcon size={18} />, label: t('settings.imposters'), value: imposterCount },
+    {
+      icon: <UsersIcon size={18} />,
+      label: t('settings.players'),
+      value: playerCount
+    },
+    {
+      icon: <FolderIcon size={18} />,
+      label: t('settings.categories'),
+      value: selectedCategories
+        .map((c) => t(`categories.${c.toLowerCase()}.name`))
+        .join(', ')
+    },
+    {
+      icon: <UserSearchIcon size={18} />,
+      label: t('settings.imposters'),
+      value: imposterCount
+    }
   ];
 
   return (

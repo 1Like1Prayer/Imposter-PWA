@@ -5,7 +5,11 @@ interface IconProps {
   className?: string;
 }
 
-function Icon({ size = 24, className = '', children }: IconProps & { children: React.ReactNode }) {
+function Icon({
+  size = 24,
+  className = '',
+  children
+}: IconProps & { children: React.ReactNode }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

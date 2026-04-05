@@ -1,205 +1,267 @@
 import type { CategoryName, CategoryInfo } from '../types/game';
 import i18next from 'i18next';
 
-/** Each word paired with a hint that the imposter sees */
+/** Raw word entry — just the key used for translation lookups */
+export interface RawWordEntry {
+  key: string; // English word key, e.g. "Pizza"
+  category: string; // lowercase category id, e.g. "food"
+}
+
+/** Translated word entry used during gameplay */
 export interface WordEntry {
   word: string;
   hint: string;
 }
 
-export const CATEGORIES: CategoryInfo[] = [
-  { name: 'Food', emoji: '🍕', description: i18next.t('categories.food.desc', 'Tasty dishes & ingredients') },
-  { name: 'Hobbies', emoji: '🎨', description: i18next.t('categories.hobbies.desc', 'Fun things people do') },
-  { name: 'Nature', emoji: '🌿', description: i18next.t('categories.nature.desc', 'The natural world') },
-  { name: 'Characters', emoji: '🦸', description: i18next.t('categories.characters.desc', 'Disney, Legends, Heroes...') },
-  { name: 'Jobs', emoji: '👷', description: i18next.t('categories.jobs.desc', 'Occupations & professions') },
-  { name: 'Places', emoji: '🗺️', description: i18next.t('categories.places.desc', 'Locations around the world') },
-  { name: 'Animals', emoji: '🐾', description: i18next.t('categories.animals.desc', 'Creatures big & small') },
-  { name: 'Sports', emoji: '⚽', description: i18next.t('categories.sports.desc', 'Games & athletics') },
-];
-
-/** Helper to build a translated word entry */
-function w(category: string, word: string, fallbackHint: string): WordEntry {
-  return { word, hint: i18next.t(`words.${category}.${word}`, fallbackHint) };
+/** Get translated categories — call at render time, not module load */
+export function getCategories(): CategoryInfo[] {
+  return [
+    {
+      name: 'Food',
+      emoji: '🍕',
+      description: i18next.t(
+        'categories.food.desc',
+        'Tasty dishes & ingredients'
+      )
+    },
+    {
+      name: 'Hobbies',
+      emoji: '🎨',
+      description: i18next.t('categories.hobbies.desc', 'Fun things people do')
+    },
+    {
+      name: 'Nature',
+      emoji: '🌿',
+      description: i18next.t('categories.nature.desc', 'The natural world')
+    },
+    {
+      name: 'Characters',
+      emoji: '🦸',
+      description: i18next.t(
+        'categories.characters.desc',
+        'Disney, Legends, Heroes...'
+      )
+    },
+    {
+      name: 'Jobs',
+      emoji: '👷',
+      description: i18next.t(
+        'categories.jobs.desc',
+        'Occupations & professions'
+      )
+    },
+    {
+      name: 'Places',
+      emoji: '🗺️',
+      description: i18next.t(
+        'categories.places.desc',
+        'Locations around the world'
+      )
+    },
+    {
+      name: 'Animals',
+      emoji: '🐾',
+      description: i18next.t('categories.animals.desc', 'Creatures big & small')
+    },
+    {
+      name: 'Sports',
+      emoji: '⚽',
+      description: i18next.t('categories.sports.desc', 'Games & athletics')
+    }
+  ];
 }
 
-const WORD_LISTS: Record<CategoryName, WordEntry[]> = {
+/** Translate a raw word entry using the current language */
+export function translateWord(raw: RawWordEntry): WordEntry {
+  return {
+    word: i18next.t(`words.${raw.category}.${raw.key}.name`, raw.key),
+    hint: i18next.t(`words.${raw.category}.${raw.key}.hint`, raw.key)
+  };
+}
+
+/** Helper to define a raw word entry */
+function w(category: string, key: string): RawWordEntry {
+  return { key, category };
+}
+
+/** Raw word lists — no translations, just keys */
+const RAW_WORD_LISTS: Record<CategoryName, RawWordEntry[]> = {
   Food: [
-    w('food', 'Pizza', 'Italian dish'),
-    w('food', 'Sushi', 'Japanese cuisine'),
-    w('food', 'Tacos', 'Mexican street food'),
-    w('food', 'Pasta', 'Noodle dish'),
-    w('food', 'Burger', 'Fast food classic'),
-    w('food', 'Chocolate', 'Sweet treat'),
-    w('food', 'Ice Cream', 'Frozen dessert'),
-    w('food', 'Pancakes', 'Breakfast item'),
-    w('food', 'Steak', 'Grilled meat'),
-    w('food', 'Salad', 'Healthy greens'),
-    w('food', 'Croissant', 'French bakery item'),
-    w('food', 'Ramen', 'Asian soup'),
-    w('food', 'Falafel', 'Middle Eastern snack'),
-    w('food', 'Popcorn', 'Movie snack'),
-    w('food', 'Waffles', 'Grid-patterned breakfast'),
-    w('food', 'Curry', 'Spiced dish'),
-    w('food', 'Donut', 'Ring-shaped pastry'),
-    w('food', 'Lasagna', 'Layered baked dish'),
-    w('food', 'Hummus', 'Chickpea dip'),
-    w('food', 'Cheesecake', 'Creamy dessert'),
+    w('food', 'Pizza'),
+    w('food', 'Sushi'),
+    w('food', 'Tacos'),
+    w('food', 'Pasta'),
+    w('food', 'Burger'),
+    w('food', 'Chocolate'),
+    w('food', 'Ice Cream'),
+    w('food', 'Pancakes'),
+    w('food', 'Steak'),
+    w('food', 'Salad'),
+    w('food', 'Croissant'),
+    w('food', 'Ramen'),
+    w('food', 'Falafel'),
+    w('food', 'Popcorn'),
+    w('food', 'Waffles'),
+    w('food', 'Curry'),
+    w('food', 'Donut'),
+    w('food', 'Lasagna'),
+    w('food', 'Hummus'),
+    w('food', 'Cheesecake')
   ],
   Hobbies: [
-    w('hobbies', 'Painting', 'Art with colors'),
-    w('hobbies', 'Gaming', 'Digital entertainment'),
-    w('hobbies', 'Gardening', 'Growing plants'),
-    w('hobbies', 'Photography', 'Capturing images'),
-    w('hobbies', 'Cooking', 'Making food'),
-    w('hobbies', 'Reading', 'Books activity'),
-    w('hobbies', 'Knitting', 'Yarn craft'),
-    w('hobbies', 'Fishing', 'Catching with a rod'),
-    w('hobbies', 'Dancing', 'Moving to music'),
-    w('hobbies', 'Hiking', 'Walking in nature'),
-    w('hobbies', 'Singing', 'Vocal performance'),
-    w('hobbies', 'Surfing', 'Riding waves'),
-    w('hobbies', 'Origami', 'Paper folding'),
-    w('hobbies', 'Chess', 'Board strategy game'),
-    w('hobbies', 'Yoga', 'Mind-body practice'),
-    w('hobbies', 'Pottery', 'Clay shaping'),
-    w('hobbies', 'Skateboarding', 'Rolling on a board'),
-    w('hobbies', 'Astronomy', 'Stargazing hobby'),
-    w('hobbies', 'Drawing', 'Pencil art'),
-    w('hobbies', 'Camping', 'Sleeping outdoors'),
+    w('hobbies', 'Painting'),
+    w('hobbies', 'Gaming'),
+    w('hobbies', 'Gardening'),
+    w('hobbies', 'Photography'),
+    w('hobbies', 'Cooking'),
+    w('hobbies', 'Reading'),
+    w('hobbies', 'Knitting'),
+    w('hobbies', 'Fishing'),
+    w('hobbies', 'Dancing'),
+    w('hobbies', 'Hiking'),
+    w('hobbies', 'Singing'),
+    w('hobbies', 'Surfing'),
+    w('hobbies', 'Origami'),
+    w('hobbies', 'Chess'),
+    w('hobbies', 'Yoga'),
+    w('hobbies', 'Pottery'),
+    w('hobbies', 'Skateboarding'),
+    w('hobbies', 'Astronomy'),
+    w('hobbies', 'Drawing'),
+    w('hobbies', 'Camping')
   ],
   Nature: [
-    w('nature', 'Volcano', 'Erupts lava'),
-    w('nature', 'Waterfall', 'Falling water'),
-    w('nature', 'Rainbow', 'Colorful arc in sky'),
-    w('nature', 'Forest', 'Dense trees'),
-    w('nature', 'Ocean', 'Vast body of water'),
-    w('nature', 'Mountain', 'Very tall landform'),
-    w('nature', 'Desert', 'Sandy dry place'),
-    w('nature', 'Glacier', 'Massive ice'),
-    w('nature', 'Coral Reef', 'Underwater ecosystem'),
-    w('nature', 'Aurora', 'Northern lights'),
-    w('nature', 'Thunder', 'Storm sound'),
-    w('nature', 'Tornado', 'Spinning wind'),
-    w('nature', 'Earthquake', 'Ground shaking'),
-    w('nature', 'Sunrise', 'Morning sky event'),
-    w('nature', 'Cave', 'Underground opening'),
-    w('nature', 'River', 'Flowing water'),
-    w('nature', 'Island', 'Land surrounded by water'),
-    w('nature', 'Jungle', 'Tropical forest'),
-    w('nature', 'Snowflake', 'Frozen crystal'),
-    w('nature', 'Lightning', 'Electric flash'),
+    w('nature', 'Volcano'),
+    w('nature', 'Waterfall'),
+    w('nature', 'Rainbow'),
+    w('nature', 'Forest'),
+    w('nature', 'Ocean'),
+    w('nature', 'Mountain'),
+    w('nature', 'Desert'),
+    w('nature', 'Glacier'),
+    w('nature', 'Coral Reef'),
+    w('nature', 'Aurora'),
+    w('nature', 'Thunder'),
+    w('nature', 'Tornado'),
+    w('nature', 'Earthquake'),
+    w('nature', 'Sunrise'),
+    w('nature', 'Cave'),
+    w('nature', 'River'),
+    w('nature', 'Island'),
+    w('nature', 'Jungle'),
+    w('nature', 'Snowflake'),
+    w('nature', 'Lightning')
   ],
   Characters: [
-    w('characters', 'Elsa', 'Disney ice princess'),
-    w('characters', 'Spider-Man', 'Web-slinging hero'),
-    w('characters', 'Shrek', 'Green animated character'),
-    w('characters', 'Batman', 'Dark knight hero'),
-    w('characters', 'Pikachu', 'Electric yellow creature'),
-    w('characters', 'Mario', 'Plumber in a game'),
-    w('characters', 'Simba', 'Lion king cub'),
-    w('characters', 'Buzz Lightyear', 'Space ranger toy'),
-    w('characters', 'Gandalf', 'Wizard with a staff'),
-    w('characters', 'Darth Vader', 'Dark side villain'),
-    w('characters', 'Wonder Woman', 'Amazon warrior hero'),
-    w('characters', 'Genie', 'Grants three wishes'),
-    w('characters', 'Harry Potter', 'Boy wizard'),
-    w('characters', 'Mulan', 'Warrior princess'),
-    w('characters', 'Thor', 'God of thunder'),
-    w('characters', 'Cinderella', 'Glass slipper princess'),
-    w('characters', 'Hulk', 'Big green hero'),
-    w('characters', 'Nemo', 'Lost little fish'),
-    w('characters', 'Robin Hood', 'Steals from the rich'),
-    w('characters', 'Rapunzel', 'Long-haired princess'),
+    w('characters', 'Elsa'),
+    w('characters', 'Spider-Man'),
+    w('characters', 'Shrek'),
+    w('characters', 'Batman'),
+    w('characters', 'Pikachu'),
+    w('characters', 'Mario'),
+    w('characters', 'Simba'),
+    w('characters', 'Buzz Lightyear'),
+    w('characters', 'Gandalf'),
+    w('characters', 'Darth Vader'),
+    w('characters', 'Wonder Woman'),
+    w('characters', 'Genie'),
+    w('characters', 'Harry Potter'),
+    w('characters', 'Mulan'),
+    w('characters', 'Thor'),
+    w('characters', 'Cinderella'),
+    w('characters', 'Hulk'),
+    w('characters', 'Nemo'),
+    w('characters', 'Robin Hood'),
+    w('characters', 'Rapunzel')
   ],
   Jobs: [
-    w('jobs', 'Firefighter', 'Puts out flames'),
-    w('jobs', 'Astronaut', 'Travels to space'),
-    w('jobs', 'Chef', 'Cooks professionally'),
-    w('jobs', 'Detective', 'Solves mysteries'),
-    w('jobs', 'Pilot', 'Flies aircraft'),
-    w('jobs', 'Doctor', 'Heals patients'),
-    w('jobs', 'Teacher', 'Educates students'),
-    w('jobs', 'Lifeguard', 'Watches swimmers'),
-    w('jobs', 'Scientist', 'Does experiments'),
-    w('jobs', 'Artist', 'Creates visual works'),
-    w('jobs', 'Mechanic', 'Fixes engines'),
-    w('jobs', 'Architect', 'Designs buildings'),
-    w('jobs', 'Journalist', 'Reports news'),
-    w('jobs', 'Surgeon', 'Operates on people'),
-    w('jobs', 'Veterinarian', 'Animal doctor'),
-    w('jobs', 'Electrician', 'Works with wires'),
-    w('jobs', 'Photographer', 'Takes photos for work'),
-    w('jobs', 'Plumber', 'Fixes pipes'),
-    w('jobs', 'Lawyer', 'Argues in court'),
-    w('jobs', 'Musician', 'Plays instruments'),
+    w('jobs', 'Firefighter'),
+    w('jobs', 'Astronaut'),
+    w('jobs', 'Chef'),
+    w('jobs', 'Detective'),
+    w('jobs', 'Pilot'),
+    w('jobs', 'Doctor'),
+    w('jobs', 'Teacher'),
+    w('jobs', 'Lifeguard'),
+    w('jobs', 'Scientist'),
+    w('jobs', 'Artist'),
+    w('jobs', 'Mechanic'),
+    w('jobs', 'Architect'),
+    w('jobs', 'Journalist'),
+    w('jobs', 'Surgeon'),
+    w('jobs', 'Veterinarian'),
+    w('jobs', 'Electrician'),
+    w('jobs', 'Photographer'),
+    w('jobs', 'Plumber'),
+    w('jobs', 'Lawyer'),
+    w('jobs', 'Musician')
   ],
   Places: [
-    w('places', 'Paris', 'City of lights'),
-    w('places', 'Tokyo', 'Japanese capital'),
-    w('places', 'New York', 'The Big Apple'),
-    w('places', 'Egypt', 'Land of pyramids'),
-    w('places', 'Amazon', 'Giant rainforest'),
-    w('places', 'Antarctica', 'Frozen continent'),
-    w('places', 'Rome', 'Eternal city'),
-    w('places', 'Hawaii', 'Tropical islands'),
-    w('places', 'London', 'Big Ben city'),
-    w('places', 'Sydney', 'Opera house city'),
-    w('places', 'Dubai', 'Luxury desert city'),
-    w('places', 'Venice', 'City of canals'),
-    w('places', 'Hollywood', 'Movie capital'),
-    w('places', 'Mars', 'Red planet'),
-    w('places', 'Bermuda Triangle', 'Mysterious ocean area'),
-    w('places', 'Mount Everest', 'Tallest peak'),
-    w('places', 'Sahara', 'Biggest desert'),
-    w('places', 'Las Vegas', 'Casino city'),
-    w('places', 'Atlantis', 'Lost underwater city'),
-    w('places', 'North Pole', "Santa's home"),
+    w('places', 'Paris'),
+    w('places', 'Tokyo'),
+    w('places', 'New York'),
+    w('places', 'Egypt'),
+    w('places', 'Amazon'),
+    w('places', 'Antarctica'),
+    w('places', 'Rome'),
+    w('places', 'Hawaii'),
+    w('places', 'London'),
+    w('places', 'Sydney'),
+    w('places', 'Dubai'),
+    w('places', 'Venice'),
+    w('places', 'Hollywood'),
+    w('places', 'Mars'),
+    w('places', 'Bermuda Triangle'),
+    w('places', 'Mount Everest'),
+    w('places', 'Sahara'),
+    w('places', 'Las Vegas'),
+    w('places', 'Atlantis'),
+    w('places', 'North Pole')
   ],
   Animals: [
-    w('animals', 'Dolphin', 'Smart sea mammal'),
-    w('animals', 'Eagle', 'Majestic bird of prey'),
-    w('animals', 'Penguin', 'Tuxedo bird'),
-    w('animals', 'Tiger', 'Striped big cat'),
-    w('animals', 'Elephant', 'Largest land animal'),
-    w('animals', 'Octopus', 'Eight-armed sea creature'),
-    w('animals', 'Chameleon', 'Color-changing lizard'),
-    w('animals', 'Panda', 'Black and white bear'),
-    w('animals', 'Shark', 'Ocean predator'),
-    w('animals', 'Butterfly', 'Colorful flying insect'),
-    w('animals', 'Wolf', 'Howling pack animal'),
-    w('animals', 'Koala', 'Australian tree dweller'),
-    w('animals', 'Flamingo', 'Pink standing bird'),
-    w('animals', 'Gorilla', 'Largest primate'),
-    w('animals', 'Seahorse', 'Tiny ocean horse'),
-    w('animals', 'Owl', 'Nocturnal bird'),
-    w('animals', 'Cheetah', 'Fastest land animal'),
-    w('animals', 'Jellyfish', 'Transparent sea creature'),
-    w('animals', 'Parrot', 'Talking colorful bird'),
-    w('animals', 'Turtle', 'Slow shelled reptile'),
+    w('animals', 'Dolphin'),
+    w('animals', 'Eagle'),
+    w('animals', 'Penguin'),
+    w('animals', 'Tiger'),
+    w('animals', 'Elephant'),
+    w('animals', 'Octopus'),
+    w('animals', 'Chameleon'),
+    w('animals', 'Panda'),
+    w('animals', 'Shark'),
+    w('animals', 'Butterfly'),
+    w('animals', 'Wolf'),
+    w('animals', 'Koala'),
+    w('animals', 'Flamingo'),
+    w('animals', 'Gorilla'),
+    w('animals', 'Seahorse'),
+    w('animals', 'Owl'),
+    w('animals', 'Cheetah'),
+    w('animals', 'Jellyfish'),
+    w('animals', 'Parrot'),
+    w('animals', 'Turtle')
   ],
   Sports: [
-    w('sports', 'Basketball', 'Hoop and ball game'),
-    w('sports', 'Tennis', 'Racket and ball sport'),
-    w('sports', 'Swimming', 'Water racing sport'),
-    w('sports', 'Soccer', "World's most popular sport"),
-    w('sports', 'Boxing', 'Ring fighting sport'),
-    w('sports', 'Skiing', 'Snow sliding sport'),
-    w('sports', 'Archery', 'Bow and arrow sport'),
-    w('sports', 'Volleyball', 'Net and ball team sport'),
-    w('sports', 'Gymnastics', 'Flexibility sport'),
-    w('sports', 'Surfing', 'Riding waves'),
-    w('sports', 'Baseball', 'Bat and ball sport'),
-    w('sports', 'Fencing', 'Sword fighting sport'),
-    w('sports', 'Golf', 'Club and hole sport'),
-    w('sports', 'Rugby', 'Tackling ball sport'),
-    w('sports', 'Karate', 'Martial arts style'),
-    w('sports', 'Hockey', 'Stick and puck sport'),
-    w('sports', 'Snowboarding', 'Board on snow sport'),
-    w('sports', 'Wrestling', 'Grappling sport'),
-    w('sports', 'Badminton', 'Shuttlecock sport'),
-    w('sports', 'Table Tennis', 'Ping pong'),
-  ],
+    w('sports', 'Basketball'),
+    w('sports', 'Tennis'),
+    w('sports', 'Swimming'),
+    w('sports', 'Soccer'),
+    w('sports', 'Boxing'),
+    w('sports', 'Skiing'),
+    w('sports', 'Archery'),
+    w('sports', 'Volleyball'),
+    w('sports', 'Gymnastics'),
+    w('sports', 'Surfing'),
+    w('sports', 'Baseball'),
+    w('sports', 'Fencing'),
+    w('sports', 'Golf'),
+    w('sports', 'Rugby'),
+    w('sports', 'Karate'),
+    w('sports', 'Hockey'),
+    w('sports', 'Snowboarding'),
+    w('sports', 'Wrestling'),
+    w('sports', 'Badminton'),
+    w('sports', 'Table Tennis')
+  ]
 };
 
-export default WORD_LISTS;
+export default RAW_WORD_LISTS;

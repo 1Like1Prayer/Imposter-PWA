@@ -1,10 +1,7 @@
 export default {
-  locales: [
-    "en",
-    "he"
-  ],
+  locales: ['en', 'he'],
   extract: {
-    input: "src/**/*.{js,jsx,ts,tsx}",
-    output: "public/locales/{{language}}/{{namespace}}.json"
+    input: 'src/**/*.{js,jsx,ts,tsx}',
+    output: 'public/locales/{{language}}/{{namespace}}.json'
   }
-}
+};

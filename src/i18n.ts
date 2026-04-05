@@ -6,32 +6,30 @@
 //   • Lazy-load from a server: https://github.com/i18next/i18next-http-backend
 //   • Manage translations with your team via Locize: https://www.locize.com
 //     (see i18next-locize-backend: https://github.com/locize/i18next-locize-backend)
-import i18next from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import enTranslation from '../public/locales/en/translation.json'
-import heTranslation from '../public/locales/he/translation.json'
+import i18next from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import enTranslation from '../public/locales/en/translation.json';
+import heTranslation from '../public/locales/he/translation.json';
 
-const RTL_LANGUAGES = ['he', 'ar']
+const RTL_LANGUAGES = ['he', 'ar'];
 
 function applyDirection(lng: string) {
-  document.documentElement.dir = RTL_LANGUAGES.includes(lng) ? 'rtl' : 'ltr'
+  document.documentElement.dir = RTL_LANGUAGES.includes(lng) ? 'rtl' : 'ltr';
 }
 
-i18next
-  .use(initReactI18next)
-  .init({
-    returnEmptyString: false,
-    lng: 'he',
-    fallbackLng: 'en',
-    defaultNS: 'translation',
-    resources: {
-      en: { translation: enTranslation },
-      he: { translation: heTranslation },
-    },
-  })
+i18next.use(initReactI18next).init({
+  returnEmptyString: false,
+  lng: 'he',
+  fallbackLng: 'en',
+  defaultNS: 'translation',
+  resources: {
+    en: { translation: enTranslation },
+    he: { translation: heTranslation }
+  }
+});
 
 // Set direction on init and on every language change
-applyDirection(i18next.language)
-i18next.on('languageChanged', applyDirection)
+applyDirection(i18next.language);
+i18next.on('languageChanged', applyDirection);
 
-export default i18next
+export default i18next;

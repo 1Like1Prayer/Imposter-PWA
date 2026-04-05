@@ -1,5 +1,5 @@
 import type { CategoryName } from '../../types/game';
-import { CATEGORIES as CATEGORIES_DATA } from '../../data/wordLists';
+import { getCategories } from '../../data/wordLists';
 import { useTranslation } from 'react-i18next';
 import { ScreenHeader, ScreenActions, ArrowRightIcon } from '../shared';
 import CategoryCard from './CategoryCard';
@@ -20,7 +20,7 @@ export default function CategorySelect({
   onToggleCategory,
   canContinue,
   onContinue,
-  onBack,
+  onBack
 }: CategorySelectProps) {
   const { t } = useTranslation();
   const isMaxSelected = selectedCategories.length >= MAX_CATEGORIES;
@@ -34,7 +34,7 @@ export default function CategorySelect({
       </p>
 
       <div className="category-grid">
-        {CATEGORIES_DATA.map((category) => {
+        {getCategories().map((category) => {
           const isSelected = selectedCategories.includes(category.name);
           const isDisabled = !isSelected && isMaxSelected;
 
@@ -51,7 +51,10 @@ export default function CategorySelect({
       </div>
 
       <p className="selected-count">
-        {t('categories.selectedCount', { selected: selectedCategories.length, max: MAX_CATEGORIES })}
+        {t('categories.selectedCount', {
+          selected: selectedCategories.length,
+          max: MAX_CATEGORIES
+        })}
       </p>
 
       <ScreenActions>

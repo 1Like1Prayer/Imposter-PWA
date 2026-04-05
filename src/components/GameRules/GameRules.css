@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top)) calc(clamp(12px, 5vw, 20px) + var(--safe-right)) calc(clamp(16px, 5vw, 24px) + var(--safe-bottom)) calc(clamp(12px, 5vw, 20px) + var(--safe-left));
+  padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top))
+    calc(clamp(12px, 5vw, 20px) + var(--safe-right))
+    calc(clamp(16px, 5vw, 24px) + var(--safe-bottom))
+    calc(clamp(12px, 5vw, 20px) + var(--safe-left));
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
@@ -33,13 +36,27 @@
 }
 
 /* Stagger the rule items */
-.rule-item:nth-child(1) { animation-delay: 0.05s; }
-.rule-item:nth-child(2) { animation-delay: 0.10s; }
-.rule-item:nth-child(3) { animation-delay: 0.15s; }
-.rule-item:nth-child(4) { animation-delay: 0.20s; }
-.rule-item:nth-child(5) { animation-delay: 0.25s; }
-.rule-item:nth-child(6) { animation-delay: 0.30s; }
-.rule-item:nth-child(7) { animation-delay: 0.35s; }
+.rule-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.rule-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.rule-item:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.rule-item:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.rule-item:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.rule-item:nth-child(6) {
+  animation-delay: 0.3s;
+}
+.rule-item:nth-child(7) {
+  animation-delay: 0.35s;
+}
 
 .rule-number {
   display: flex;

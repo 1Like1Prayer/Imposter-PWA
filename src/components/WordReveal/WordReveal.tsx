@@ -24,7 +24,7 @@ export default function WordReveal({
   gameRound,
   onRestart,
   onBackToMenu,
-  onBackToSettings,
+  onBackToSettings
 }: WordRevealProps) {
   const { t } = useTranslation();
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -72,7 +72,9 @@ export default function WordReveal({
   }, []);
 
   if (allDone) {
-    return <GameReadyScreen onRestart={onRestart} onBackToMenu={onBackToMenu} />;
+    return (
+      <GameReadyScreen onRestart={onRestart} onBackToMenu={onBackToMenu} />
+    );
   }
 
   return (
@@ -99,7 +101,10 @@ export default function WordReveal({
 
       {/* Bottom nav — visible once card is flipped */}
       <div className={`reveal-actions${isFlipped ? ' visible' : ''}`}>
-        <button className="btn btn-primary reveal-next-btn" onClick={handleNextPlayer}>
+        <button
+          className="btn btn-primary reveal-next-btn"
+          onClick={handleNextPlayer}
+        >
           {isLastPlayer ? t('reveal.allSeen') : t('common.next')}
           <ArrowRightIcon size={18} />
         </button>

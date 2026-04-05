@@ -10,7 +10,10 @@ interface PlayerListProps {
 }
 
 /** Scrollable list of added players, or empty-state hint */
-export default function PlayerList({ players, onRemovePlayer }: PlayerListProps) {
+export default function PlayerList({
+  players,
+  onRemovePlayer
+}: PlayerListProps) {
   const { t } = useTranslation();
   return (
     <div className="player-list">

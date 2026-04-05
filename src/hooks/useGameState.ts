@@ -1,6 +1,16 @@
 import { useState, useCallback } from 'react';
-import type { GameScreen, CategoryName, Player, GameRound, GameConfig } from '../types/game';
-import { generateId, getDefaultImposterCount, createGameRound } from '../utils/gameLogic';
+import type {
+  GameScreen,
+  CategoryName,
+  Player,
+  GameRound,
+  GameConfig
+} from '../types/game';
+import {
+  generateId,
+  getDefaultImposterCount,
+  createGameRound
+} from '../utils/gameLogic';
 
 const MIN_PLAYERS = 3;
 const MAX_CATEGORIES = 3;
@@ -8,7 +18,9 @@ const MAX_CATEGORIES = 3;
 export function useGameState() {
   const [screen, setScreen] = useState<GameScreen>('menu');
   const [players, setPlayers] = useState<Player[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<CategoryName[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<CategoryName[]>(
+    []
+  );
   const [imposterCount, setImposterCount] = useState(1);
   const [gameRound, setGameRound] = useState<GameRound | null>(null);
   const [roundKey, setRoundKey] = useState(0);
@@ -70,7 +82,7 @@ export function useGameState() {
       players: 'menu',
       categories: 'players',
       settings: 'categories',
-      reveal: 'settings',
+      reveal: 'settings'
     };
     const target = backMap[screen] ?? 'menu';
     setScreen(target);
@@ -107,7 +119,7 @@ export function useGameState() {
   const gameConfig: GameConfig = {
     players,
     selectedCategories,
-    imposterCount,
+    imposterCount
   };
 
   return {
@@ -135,6 +147,6 @@ export function useGameState() {
     goBack,
     startGame,
     resetGame,
-    restartRound,
+    restartRound
   };
 }

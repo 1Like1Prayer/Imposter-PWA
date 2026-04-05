@@ -22,7 +22,7 @@ export default function useCardFlipSwipe({
   isFlipped,
   noTransition,
   onFlip,
-  onSwipeNext,
+  onSwipeNext
 }: UseCardFlipSwipeOptions) {
   const touchStart = useRef<{ x: number; y: number } | null>(null);
 
@@ -32,7 +32,9 @@ export default function useCardFlipSwipe({
   const [settling, setSettling] = useState(false);
 
   // --- Dismiss drag state (card revealed, follows finger on both axes) ---
-  const [dismissPos, setDismissPos] = useState<{ x: number; y: number } | null>(null);
+  const [dismissPos, setDismissPos] = useState<{ x: number; y: number } | null>(
+    null
+  );
   const [dismissSettling, setDismissSettling] = useState(false);
 
   const handleTouchStart = useCallback(
@@ -47,7 +49,7 @@ export default function useCardFlipSwipe({
         setDismissPos({ x: 0, y: 0 });
       }
     },
-    [isFlipped, settling, dismissSettling],
+    [isFlipped, settling, dismissSettling]
   );
 
   const handleTouchMove = useCallback(
@@ -69,7 +71,7 @@ export default function useCardFlipSwipe({
         setDismissPos({ x: dx, y: dy });
       }
     },
-    [isFlipped, dragRotation],
+    [isFlipped, dragRotation]
   );
 
   const handleTouchEnd = useCallback(
@@ -115,7 +117,10 @@ export default function useCardFlipSwipe({
           setDismissSettling(false);
           onSwipeNext();
         }, SETTLE_MS);
-      } else if (dismissPos !== null && (dismissPos.x !== 0 || dismissPos.y !== 0)) {
+      } else if (
+        dismissPos !== null &&
+        (dismissPos.x !== 0 || dismissPos.y !== 0)
+      ) {
         // Spring back
         setDismissSettling(true);
         setDismissPos({ x: 0, y: 0 });
@@ -127,7 +132,7 @@ export default function useCardFlipSwipe({
         setDismissPos(null);
       }
     },
-    [isFlipped, onFlip, onSwipeNext, dragRotation, dismissPos],
+    [isFlipped, onFlip, onSwipeNext, dragRotation, dismissPos]
   );
 
   // --- Flip styles (horizontal only → rotateY) ---
@@ -159,7 +164,7 @@ export default function useCardFlipSwipe({
       opacity,
       transition: dismissSettling
         ? 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1)'
-        : 'none',
+        : 'none'
     };
   }
 
@@ -167,14 +172,14 @@ export default function useCardFlipSwipe({
     touchHandlers: {
       onTouchStart: handleTouchStart,
       onTouchMove: handleTouchMove,
-      onTouchEnd: handleTouchEnd,
+      onTouchEnd: handleTouchEnd
     },
     flipStyle: {
       ...(flipTransform !== undefined && { transform: flipTransform }),
-      ...(flipTransition !== undefined && { transition: flipTransition }),
+      ...(flipTransition !== undefined && { transition: flipTransition })
     },
     isDragging,
     dismissStyle,
-    backFaceTransform: 'rotateY(180deg)',
+    backFaceTransform: 'rotateY(180deg)'
   };
 }

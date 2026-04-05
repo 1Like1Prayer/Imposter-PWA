@@ -4,7 +4,10 @@
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  padding: calc(40px + var(--safe-top)) calc(clamp(12px, 5vw, 20px) + var(--safe-right)) calc(40px + var(--safe-bottom)) calc(clamp(12px, 5vw, 20px) + var(--safe-left));
+  padding: calc(40px + var(--safe-top))
+    calc(clamp(12px, 5vw, 20px) + var(--safe-right))
+    calc(40px + var(--safe-bottom))
+    calc(clamp(12px, 5vw, 20px) + var(--safe-left));
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -56,15 +59,24 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .menu-title {
   font-size: clamp(40px, 14vw, 56px);
   font-weight: 900;
   letter-spacing: -2px;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--secondary-accent) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--secondary-accent) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -91,7 +103,7 @@
   padding: clamp(14px, 4vw, 16px) clamp(24px, 7vw, 32px);
 }
 
-[dir="rtl"] .menu-buttons .btn svg {
+[dir='rtl'] .menu-buttons .btn svg {
   transform: scaleX(-1);
 }
 
