@@ -1,7 +1,7 @@
 .category-select {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  height: 85dvh;
   padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top))
     calc(clamp(12px, 5vw, 20px) + var(--safe-right)) 0
     calc(clamp(12px, 5vw, 20px) + var(--safe-left));
@@ -9,6 +9,14 @@
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+.category-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .category-instruction {
