@@ -1,64 +1,107 @@
 import { REVEAL } from '../../copies';
 import type { GameRound } from '../../types/game';
-import { TapIcon, UserSearchIcon, ShieldCheckIcon } from '../shared/Icons';
+import { TapIcon, UserSearchIcon, ShieldCheckIcon, SwipeIcon } from '../shared/Icons';
+import useCardFlipSwipe from '../../hooks/useCardFlipSwipe';
 
 interface RevealCardProps {
   playerName: string;
-  isRevealed: boolean;
+  isFlipped: boolean;
   isImposter: boolean;
   gameRound: GameRound;
-  onTapToReveal: () => void;
+  noTransition?: boolean;
+  slideIn?: boolean;
+  onFlip: () => void;
+  onSwipeNext: () => void;
+  onSlideInEnd?: () => void;
 }
 
-/** Card that starts hidden, reveals word/hint on tap */
 export default function RevealCard({
   playerName,
-  isRevealed,
+  isFlipped,
   isImposter,
   gameRound,
-  onTapToReveal,
+  noTransition,
+  slideIn,
+  onFlip,
+  onSwipeNext,
+  onSlideInEnd,
 }: RevealCardProps) {
-  if (!isRevealed) {
-    return (
-      <div className="reveal-card" onClick={onTapToReveal} role="button" tabIndex={0}>
-        <span className="reveal-tap-icon">
-          <TapIcon size={48} />
-        </span>
-        <span className="reveal-tap-hint">{REVEAL.TAP_HINT}</span>
-        <p className="reveal-warning">
-          {REVEAL.PRIVACY_WARNING(playerName)}
-        </p>
-      </div>
-    );
-  }
+  const { touchHandlers, flipStyle, isDragging, dismissStyle, backFaceTransform } =
+    useCardFlipSwipe({ isFlipped, noTransition, onFlip, onSwipeNext });
+
+  const containerClass = [
+    'reveal-card-container',
+    isFlipped && 'flipped',
+    noTransition && 'no-transition',
+    slideIn && 'slide-in',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div
-      className={`reveal-card revealed ${
-        isImposter ? 'is-imposter' : 'is-normal'
-      }`}
-      onClick={onTapToReveal}
+      className={containerClass}
+      style={dismissStyle}
+      onClick={!isFlipped && !isDragging ? onFlip : undefined}
+      {...touchHandlers}
+      onAnimationEnd={slideIn ? onSlideInEnd : undefined}
       role="button"
       tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (!isFlipped) onFlip();
+        }
+      }}
+      aria-label={isFlipped ? `${playerName}'s role revealed` : 'Tap to reveal your role'}
     >
-      {isImposter ? (
-        <>
-          <span className="reveal-role-icon imposter-icon">
-            <UserSearchIcon size={32} />
-          </span>
-          <span className="reveal-role imposter">{REVEAL.ROLE_IMPOSTER}</span>
-          <span className="reveal-hint-label">{REVEAL.HINT_LABEL}</span>
-          <span className="reveal-hint">{gameRound.hint}</span>
-        </>
-      ) : (
-        <>
-          <span className="reveal-role-icon safe-icon">
-            <ShieldCheckIcon size={32} />
-          </span>
-          <span className="reveal-role normal">{REVEAL.ROLE_SAFE}</span>
-          <span className="reveal-word">{gameRound.secretWord}</span>
-        </>
-      )}
+      <div className="reveal-card-inner">
+        <div className="reveal-card-flip" style={flipStyle}>
+          {/* ===== FRONT FACE — tap / swipe to reveal ===== */}
+          <div className="reveal-card-face reveal-card-front">
+            <h2 className="reveal-card-name">{playerName}</h2>
+            <span className="reveal-tap-icon">
+              <TapIcon size={48} />
+            </span>
+            <span className="reveal-tap-hint">{REVEAL.TAP_HINT}</span>
+            <p className="reveal-warning">{REVEAL.PRIVACY_WARNING}</p>
+          </div>
+
+          {/* ===== BACK FACE — revealed content ===== */}
+          <div
+            className={`reveal-card-face reveal-card-back ${
+              isImposter ? 'is-imposter' : 'is-normal'
+            }`}
+            style={{ transform: backFaceTransform }}
+          >
+            <h2 className="reveal-card-name-back">{playerName}</h2>
+
+            {isImposter ? (
+              <>
+                <span className="reveal-role-icon imposter-icon">
+                  <UserSearchIcon size={40} />
+                </span>
+                <span className="reveal-role imposter">{REVEAL.ROLE_IMPOSTER}</span>
+                <span className="reveal-hint-label">{REVEAL.HINT_LABEL}</span>
+                <span className="reveal-hint">{gameRound.hint}</span>
+              </>
+            ) : (
+              <>
+                <span className="reveal-role-icon safe-icon">
+                  <ShieldCheckIcon size={40} />
+                </span>
+                <span className="reveal-role normal">{REVEAL.ROLE_SAFE}</span>
+                <span className="reveal-word">{gameRound.secretWord}</span>
+              </>
+            )}
+
+            <div className="reveal-swipe-hint">
+              <SwipeIcon size={20} />
+              <span>{REVEAL.SWIPE_NEXT_HINT}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

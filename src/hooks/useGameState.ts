@@ -11,6 +11,7 @@ export function useGameState() {
   const [selectedCategories, setSelectedCategories] = useState<CategoryName[]>([]);
   const [imposterCount, setImposterCount] = useState(1);
   const [gameRound, setGameRound] = useState<GameRound | null>(null);
+  const [roundKey, setRoundKey] = useState(0);
 
   // -- Player management --
 
@@ -80,6 +81,7 @@ export function useGameState() {
   const startGame = useCallback(() => {
     const round = createGameRound(players, selectedCategories, imposterCount);
     setGameRound(round);
+    setRoundKey((k) => k + 1);
     setScreen('reveal');
   }, [players, selectedCategories, imposterCount]);
 
@@ -93,6 +95,15 @@ export function useGameState() {
     setScreen('menu');
   }, []);
 
+  // -- Restart round: keep players & categories, re-roll word/imposter --
+
+  const restartRound = useCallback(() => {
+    const round = createGameRound(players, selectedCategories, imposterCount);
+    setGameRound(round);
+    setRoundKey((k) => k + 1);
+    setScreen('reveal');
+  }, [players, selectedCategories, imposterCount]);
+
   const gameConfig: GameConfig = {
     players,
     selectedCategories,
@@ -103,6 +114,7 @@ export function useGameState() {
     screen,
     gameConfig,
     gameRound,
+    roundKey,
     players,
     selectedCategories,
     imposterCount,
@@ -123,5 +135,6 @@ export function useGameState() {
     goBack,
     startGame,
     resetGame,
+    restartRound,
   };
 }

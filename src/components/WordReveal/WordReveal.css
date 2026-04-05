@@ -2,67 +2,113 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100dvh;
-  padding: calc(24px + var(--safe-top)) calc(20px + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(20px + var(--safe-left));
+  height: 100dvh;
+  padding: calc(clamp(10px, 2.5vw, 16px) + var(--safe-top)) calc(clamp(8px, 2.5vw, 10px) + var(--safe-right)) calc(clamp(10px, 2.5vw, 16px) + var(--safe-bottom)) calc(clamp(8px, 2.5vw, 10px) + var(--safe-left));
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
+  overflow: hidden;
+  position: relative;
 }
 
-.reveal-progress {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
+.reveal-back-btn {
+  align-self: flex-start;
+  flex-shrink: 0;
 }
 
-.reveal-player-name {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 32px;
-  text-align: center;
+/* =============================================
+   3D Flip Card — fills the screen, centered
+   ============================================= */
+
+.reveal-card-container {
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
-.reveal-card {
+.reveal-card-container.flipped {
+  cursor: default;
+}
+
+/* Slide-in entrance for the next player's card */
+.reveal-card-container.slide-in {
+  animation: card-slide-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes card-slide-in {
+  from {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.3;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Perspective wrapper — keeps perspective isolated from flex layout */
+.reveal-card-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 100%;
+  perspective: 1200px;
+}
+
+/* Flip surface — transform & transition driven by inline styles for interactive drag */
+.reveal-card-flip {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* ===== Shared face styles ===== */
+
+.reveal-card-face {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  width: 100%;
-  min-height: 220px;
-  padding: 32px 24px;
+  gap: clamp(10px, 3vw, 16px);
+  padding: clamp(20px, 6vw, 32px) clamp(16px, 5vw, 24px);
+  border-radius: var(--radius-xl);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* ===== Front face — "Tap to reveal" ===== */
+
+.reveal-card-front {
   background: var(--bg-card);
   border: 2px solid var(--border);
-  border-radius: var(--radius-xl);
-  cursor: pointer;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  text-align: center;
+  transition: box-shadow 0.15s ease-out, border-color 0.15s ease-out;
 }
 
-.reveal-card:active {
-  transform: scale(0.98);
+.reveal-card-container:not(.flipped):active .reveal-card-front {
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+  border-color: var(--secondary-accent);
 }
 
-.reveal-card.revealed {
-  cursor: pointer;
-}
-
-.reveal-card.is-imposter {
-  border-color: var(--accent);
-  box-shadow: 0 0 24px var(--accent-glow);
-}
-
-.reveal-card.is-normal {
-  border-color: var(--success);
-  box-shadow: 0 0 24px rgba(74, 222, 128, 0.2);
-}
-
-.reveal-tap-hint {
-  font-size: 16px;
-  color: var(--text-muted);
+.reveal-card-name {
+  font-size: clamp(20px, 6vw, 26px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
 .reveal-tap-icon {
@@ -70,26 +116,72 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
+.reveal-tap-hint {
+  font-size: clamp(15px, 4.5vw, 18px);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.reveal-warning {
+  font-size: clamp(12px, 3.5vw, 13px);
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ===== Back face — revealed content ===== */
+
+.reveal-card-back {
+  transform: rotateY(180deg);
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  justify-content: flex-start;
+  padding-top: clamp(24px, 7vw, 36px);
+}
+
+.reveal-card-back.is-imposter {
+  border-color: var(--accent);
+  box-shadow: 0 0 32px var(--accent-glow), inset 0 0 60px rgba(255, 77, 109, 0.05);
+}
+
+.reveal-card-back.is-normal {
+  border-color: var(--success);
+  box-shadow: 0 0 32px rgba(74, 222, 128, 0.2), inset 0 0 60px rgba(74, 222, 128, 0.03);
+}
+
+/* ===== Role & word typography ===== */
+
+.reveal-card-name-back {
+  font-size: clamp(20px, 6vw, 26px);
+  font-weight: 800;
+  color: var(--text-secondary);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  margin-top: clamp(8px, 3vw, 16px);
+  margin-bottom: auto;
+}
+
 .reveal-role-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4px;
 }
 
 .reveal-role-icon.imposter-icon {
   color: var(--accent);
+  filter: drop-shadow(0 0 10px var(--accent-glow));
 }
 
 .reveal-role-icon.safe-icon {
   color: var(--success);
+  filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.4));
 }
 
 .reveal-role {
-  font-size: 14px;
+  font-size: clamp(14px, 4vw, 15px);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .reveal-role.imposter {
@@ -101,34 +193,64 @@
 }
 
 .reveal-word {
-  font-size: 32px;
+  font-size: clamp(28px, 9vw, 36px);
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1.2;
 }
 
 .reveal-hint-label {
-  font-size: 13px;
+  font-size: clamp(12px, 3.5vw, 13px);
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .reveal-hint {
-  font-size: 20px;
+  font-size: clamp(18px, 5.5vw, 22px);
   color: var(--warning);
   font-weight: 600;
 }
 
-.reveal-warning {
-  font-size: 13px;
+.reveal-swipe-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
   color: var(--text-muted);
-  text-align: center;
-  margin-top: 16px;
-  line-height: 1.5;
+  font-size: clamp(12px, 3.5vw, 14px);
+  animation: pulse 2.5s ease-in-out infinite;
 }
 
-/* All revealed — game ready */
+/* ===== Bottom action area — always present to prevent layout shift ===== */
+
+.reveal-actions {
+  width: 100%;
+  padding-top: clamp(8px, 2vw, 10px);
+  padding-bottom: clamp(30px, 4vw, 20px);
+  flex-shrink: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+
+.reveal-actions.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.reveal-next-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* =============================================
+   All revealed — game ready
+   ============================================= */
+
 .game-ready {
   display: flex;
   flex-direction: column;
@@ -145,29 +267,37 @@
 }
 
 .game-ready-title {
-  font-size: 28px;
+  font-size: clamp(24px, 7vw, 28px);
   font-weight: 800;
   color: var(--text-primary);
 }
 
 .game-ready-subtitle {
-  font-size: 16px;
+  font-size: clamp(14px, 4vw, 16px);
   color: var(--text-secondary);
   max-width: 280px;
   line-height: 1.5;
 }
 
-/* Small screens */
-@media (max-width: 374px) {
-  .reveal-player-name {
-    font-size: 24px;
-  }
+/* =============================================
+   Tall phones (667px+ viewport height)
+   ============================================= */
 
+@media (min-height: 667px) {
   .reveal-word {
-    font-size: 26px;
+    font-size: clamp(36px, 10vw, 42px);
   }
 
-  .game-ready-title {
-    font-size: 24px;
+  .reveal-role {
+    font-size: 17px;
+    letter-spacing: 3px;
+  }
+
+  .reveal-card-name {
+    font-size: clamp(24px, 7vw, 30px);
+  }
+
+  .reveal-card-name-back {
+    font-size: clamp(22px, 6.5vw, 28px);
   }
 }

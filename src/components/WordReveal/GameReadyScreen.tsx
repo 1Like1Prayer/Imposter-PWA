@@ -1,14 +1,14 @@
 import { REVEAL, COMMON } from '../../copies';
-import { ScreenActions, MasksIcon, GamepadIcon, ArrowLeftIcon } from '../shared';
+import { ScreenActions, MasksIcon, RefreshIcon, ArrowLeftIcon } from '../shared';
 
 interface GameReadyScreenProps {
-  onGameReady: () => void;
+  onRestart: () => void;
   onBackToMenu: () => void;
 }
 
 /** Shown after all players have seen their word — ready to start playing */
 export default function GameReadyScreen({
-  onGameReady,
+  onRestart,
   onBackToMenu,
 }: GameReadyScreenProps) {
   return (
@@ -22,9 +22,9 @@ export default function GameReadyScreen({
       </div>
 
       <ScreenActions>
-        <button className="btn btn-primary btn-full" onClick={onGameReady}>
-          <GamepadIcon size={20} />
-          {REVEAL.LETS_PLAY}
+        <button className="btn btn-primary btn-full" onClick={onRestart}>
+          <RefreshIcon size={20} />
+          {REVEAL.RESTART}
         </button>
         <button className="btn btn-secondary btn-full" onClick={onBackToMenu}>
           <ArrowLeftIcon size={18} />

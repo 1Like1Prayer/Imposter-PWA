@@ -105,15 +105,12 @@ export function ShieldCheckIcon(props: IconProps) {
   );
 }
 
-/** 🎭 Masks / Game ready (Lucide: Theater) */
+/** 🎭 Masks / Game ready — symmetrical check-circle with sparkle */
 export function MasksIcon(props: IconProps) {
   return (
     <Icon {...props}>
-      <path d="M2 10s3-3 9-3 9 3 9 3" />
-      <path d="M2 10s3 3 9 3 9-3 9-3" />
-      <circle cx="8" cy="10" r="1" fill="currentColor" stroke="none" />
-      <circle cx="16" cy="10" r="1" fill="currentColor" stroke="none" />
-      <path d="M10 14c.6.5 1.2.8 2 .8s1.4-.3 2-.8" />
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
     </Icon>
   );
 }
@@ -190,6 +187,29 @@ export function UserSearchIcon(props: IconProps) {
       <path d="M10.3 15H7a4 4 0 0 0-4 4v2" />
       <circle cx="17" cy="17" r="3" />
       <path d="m21 21-1.9-1.9" />
+    </Icon>
+  );
+}
+
+/** ↔ Swipe horizontal (Lucide: MoveHorizontal) */
+export function SwipeIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <polyline points="18 8 22 12 18 16" />
+      <polyline points="6 8 2 12 6 16" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+    </Icon>
+  );
+}
+
+/** 🔄 Refresh / Restart (Lucide: RefreshCw) */
+export function RefreshIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+      <path d="M21 3v5h-5" />
+      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+      <path d="M8 16H3v5" />
     </Icon>
   );
 }

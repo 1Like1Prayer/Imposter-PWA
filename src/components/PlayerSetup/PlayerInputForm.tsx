@@ -23,7 +23,7 @@ export default function PlayerInputForm({ onAddPlayer }: PlayerInputFormProps) {
         placeholder={PLAYERS.INPUT_PLACEHOLDER}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        autoFocus
+        enterKeyHint="done"
       />
       <button
         className="btn btn-primary"

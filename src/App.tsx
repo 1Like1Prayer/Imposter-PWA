@@ -56,12 +56,12 @@ export default function App() {
       if (!game.gameRound) return null;
       return (
         <WordReveal
+          key={game.roundKey}
           players={game.players}
           gameRound={game.gameRound}
-          onGameReady={() => {
-            /* Future: navigate to gameplay screen */
-          }}
+          onRestart={game.restartRound}
           onBackToMenu={game.resetGame}
+          onBackToSettings={game.goBack}
         />
       );
 
