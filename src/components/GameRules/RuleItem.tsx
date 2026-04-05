@@ -9,10 +9,7 @@ export default function RuleItem({ stepNumber, text }: RuleItemProps) {
   return (
     <div className="rule-item">
       <div className="rule-number">{stepNumber}</div>
-      <p
-        className="rule-text"
-        dangerouslySetInnerHTML={{ __html: text }}
-      />
+      <p className="rule-text" dangerouslySetInnerHTML={{ __html: text }} />
     </div>
   );
 }

@@ -1,0 +1,283 @@
+{
+  "common": {
+    "continue": "Continue",
+    "backToMenu": "Back to Menu",
+    "backToSettings": "Back to settings",
+    "goBack": "Go back",
+    "next": "Next",
+    "restart": "Restart"
+  },
+  "menu": {
+    "title": "Imposter",
+    "subtitle": "Find the imposter among you",
+    "play": "Play"
+  },
+  "rules": {
+    "title": "Game Rules",
+    "step1": "One <strong>secret word</strong> is chosen at random from the selected categories.",
+    "step2": "Everyone sees the word <strong>except the imposter</strong>.",
+    "step3": "The imposter is given a <strong>hint</strong> instead of the actual word.",
+    "step4": "Each player gives <strong>one-word clues</strong> to prove they know the word.",
+    "step5": "After <strong>2–3 rounds</strong> of clues, the group votes on who the imposter is.",
+    "step6": "If the imposter is <strong>caught</strong>, the group wins! 🎉",
+    "step7": "If <strong>not caught</strong>, the imposter can guess the secret word at any time — and <strong>win the game</strong>! 🕵️"
+  },
+  "players": {
+    "title": "Add Players",
+    "placeholder": "Enter player name...",
+    "add": "Add",
+    "removeLabel": "Remove {{name}}",
+    "count_one": "{{count}} player added",
+    "count_other": "{{count}} players added",
+    "needMore": "· need {{needed}} more to start",
+    "emptyHint": "Add at least {{minPlayers}} players to begin"
+  },
+  "categories": {
+    "title": "Choose Categories",
+    "instruction": "Select up to {{maxCategories}} categories for the word pool",
+    "selectedCount": "{{selected}} / {{max}} selected",
+    "food": { "name": "Food", "desc": "Tasty dishes & ingredients" },
+    "hobbies": { "name": "Hobbies", "desc": "Fun things people do" },
+    "nature": { "name": "Nature", "desc": "The natural world" },
+    "characters": {
+      "name": "Characters",
+      "desc": "Disney, Legends, Heroes..."
+    },
+    "jobs": { "name": "Jobs", "desc": "Occupations & professions" },
+    "places": { "name": "Places", "desc": "Locations around the world" },
+    "animals": { "name": "Animals", "desc": "Creatures big & small" },
+    "sports": { "name": "Sports", "desc": "Games & athletics" }
+  },
+  "settings": {
+    "title": "Game Settings",
+    "imposterLabel": "Number of Imposters",
+    "decrease": "Decrease imposter count",
+    "increase": "Increase imposter count",
+    "recommendation": "Recommended: {{defaultCount}} imposter{{val}} for {{playerCount}} players",
+    "players": "Players",
+    "categories": "Categories",
+    "imposters": "Imposters",
+    "startGame": "Start Game"
+  },
+  "reveal": {
+    "tapHint": "Click or swipe to see your word",
+    "privacyWarning": "Make sure no one else is looking!",
+    "roleImposter": "You are the Imposter!",
+    "roleSafe": "You are safe",
+    "hintLabel": "Your hint",
+    "swipeHint": "Swipe to pass to next player",
+    "allSeen": "Everyone has seen their word",
+    "readyTitle": "Everyone's Ready!",
+    "readySubtitle": "Start giving one-word clues. After 2–3 rounds, vote on who the imposter is!",
+    "letsPlay": "Let's Play!",
+    "roleRevealed": "{{playerName}}'s role revealed",
+    "tapToReveal": "Tap to reveal your role"
+  },
+  "words": {
+    "food": {
+      "Pizza": { "name": "Pizza", "hint": "Italian dish" },
+      "Sushi": { "name": "Sushi", "hint": "Japanese cuisine" },
+      "Tacos": { "name": "Tacos", "hint": "Mexican street food" },
+      "Pasta": { "name": "Pasta", "hint": "Noodle dish" },
+      "Burger": { "name": "Burger", "hint": "Fast food classic" },
+      "Chocolate": { "name": "Chocolate", "hint": "Sweet treat" },
+      "Ice Cream": { "name": "Ice Cream", "hint": "Frozen dessert" },
+      "Pancakes": { "name": "Pancakes", "hint": "Breakfast item" },
+      "Steak": { "name": "Steak", "hint": "Grilled meat" },
+      "Salad": { "name": "Salad", "hint": "Healthy greens" },
+      "Croissant": { "name": "Croissant", "hint": "French bakery item" },
+      "Ramen": { "name": "Ramen", "hint": "Asian soup" },
+      "Falafel": { "name": "Falafel", "hint": "Middle Eastern snack" },
+      "Popcorn": { "name": "Popcorn", "hint": "Movie snack" },
+      "Waffles": { "name": "Waffles", "hint": "Grid-patterned breakfast" },
+      "Curry": { "name": "Curry", "hint": "Spiced dish" },
+      "Donut": { "name": "Donut", "hint": "Ring-shaped pastry" },
+      "Lasagna": { "name": "Lasagna", "hint": "Layered baked dish" },
+      "Hummus": { "name": "Hummus", "hint": "Chickpea dip" },
+      "Cheesecake": { "name": "Cheesecake", "hint": "Creamy dessert" }
+    },
+    "hobbies": {
+      "Painting": { "name": "Painting", "hint": "Art with colors" },
+      "Gaming": { "name": "Gaming", "hint": "Digital entertainment" },
+      "Gardening": { "name": "Gardening", "hint": "Growing plants" },
+      "Photography": { "name": "Photography", "hint": "Capturing images" },
+      "Cooking": { "name": "Cooking", "hint": "Making food" },
+      "Reading": { "name": "Reading", "hint": "Books activity" },
+      "Knitting": { "name": "Knitting", "hint": "Yarn craft" },
+      "Fishing": { "name": "Fishing", "hint": "Catching with a rod" },
+      "Dancing": { "name": "Dancing", "hint": "Moving to music" },
+      "Hiking": { "name": "Hiking", "hint": "Walking in nature" },
+      "Singing": { "name": "Singing", "hint": "Vocal performance" },
+      "Surfing": { "name": "Surfing", "hint": "Riding waves" },
+      "Origami": { "name": "Origami", "hint": "Paper folding" },
+      "Chess": { "name": "Chess", "hint": "Board strategy game" },
+      "Yoga": { "name": "Yoga", "hint": "Mind-body practice" },
+      "Pottery": { "name": "Pottery", "hint": "Clay shaping" },
+      "Skateboarding": {
+        "name": "Skateboarding",
+        "hint": "Rolling on a board"
+      },
+      "Astronomy": { "name": "Astronomy", "hint": "Stargazing hobby" },
+      "Camping": { "name": "Camping", "hint": "Sleeping outdoors" }
+    },
+    "nature": {
+      "Volcano": { "name": "Volcano", "hint": "Erupts lava" },
+      "Waterfall": { "name": "Waterfall", "hint": "Falling water" },
+      "Rainbow": { "name": "Rainbow", "hint": "Colorful arc in sky" },
+      "Forest": { "name": "Forest", "hint": "Dense trees" },
+      "Ocean": { "name": "Ocean", "hint": "Vast body of water" },
+      "Mountain": { "name": "Mountain", "hint": "Very tall landform" },
+      "Desert": { "name": "Desert", "hint": "Sandy dry place" },
+      "Glacier": { "name": "Glacier", "hint": "Massive ice" },
+      "Coral Reef": { "name": "Coral Reef", "hint": "Underwater ecosystem" },
+      "Aurora": { "name": "Aurora", "hint": "Northern lights" },
+      "Thunder": { "name": "Thunder", "hint": "Storm sound" },
+      "Tornado": { "name": "Tornado", "hint": "Spinning wind" },
+      "Earthquake": { "name": "Earthquake", "hint": "Ground shaking" },
+      "Sunrise": { "name": "Sunrise", "hint": "Morning sky event" },
+      "Cave": { "name": "Cave", "hint": "Underground opening" },
+      "River": { "name": "River", "hint": "Flowing water" },
+      "Island": { "name": "Island", "hint": "Land surrounded by water" },
+      "Jungle": { "name": "Jungle", "hint": "Tropical forest" },
+      "Snowflake": { "name": "Snowflake", "hint": "Frozen crystal" },
+      "Lightning": { "name": "Lightning", "hint": "Electric flash" }
+    },
+    "characters": {
+      "Elsa": { "name": "Elsa", "hint": "A Disney princess" },
+      "Spider-Man": { "name": "Spider-Man", "hint": "A masked superhero" },
+      "Shrek": { "name": "Shrek", "hint": "A fairytale creature" },
+      "Batman": { "name": "Batman", "hint": "A nocturnal character" },
+      "Pikachu": {
+        "name": "Pikachu",
+        "hint": "A character from a Japanese game"
+      },
+      "Mario": { "name": "Mario", "hint": "A famous gaming character" },
+      "Simba": { "name": "Simba", "hint": "An animal character" },
+      "Buzz Lightyear": { "name": "Buzz Lightyear", "hint": "A toy character" },
+      "Gandalf": { "name": "Gandalf", "hint": "A character with powers" },
+      "Darth Vader": { "name": "Darth Vader", "hint": "A cinematic villain" },
+      "Wonder Woman": { "name": "Wonder Woman", "hint": "A powerful warrior" },
+      "Genie": { "name": "Genie", "hint": "A magical being" },
+      "Harry Potter": {
+        "name": "Harry Potter",
+        "hint": "A character from a world of magic"
+      },
+      "Mulan": { "name": "Mulan", "hint": "A warrior heroine" },
+      "Thor": { "name": "Thor", "hint": "A character from mythology" },
+      "Cinderella": { "name": "Cinderella", "hint": "A fairytale princess" },
+      "Hulk": { "name": "Hulk", "hint": "A shapeshifting hero" },
+      "Nemo": { "name": "Nemo", "hint": "A character from the sea" },
+      "Robin Hood": { "name": "Robin Hood", "hint": "An outlaw character" },
+      "Rapunzel": {
+        "name": "Rapunzel",
+        "hint": "A character with a famous physical trait"
+      }
+    },
+    "jobs": {
+      "Firefighter": {
+        "name": "Firefighter",
+        "hint": "A job that saves lives"
+      },
+      "Astronaut": { "name": "Astronaut", "hint": "A job far from home" },
+      "Chef": { "name": "Chef", "hint": "Works in a kitchen" },
+      "Detective": {
+        "name": "Detective",
+        "hint": "A job requiring deep thought"
+      },
+      "Pilot": { "name": "Pilot", "hint": "A job in the sky" },
+      "Doctor": { "name": "Doctor", "hint": "A healthcare professional" },
+      "Teacher": { "name": "Teacher", "hint": "Works with people" },
+      "Lifeguard": { "name": "Lifeguard", "hint": "Works near the water" },
+      "Scientist": { "name": "Scientist", "hint": "Works in a lab" },
+      "Artist": { "name": "Artist", "hint": "A creative occupation" },
+      "Mechanic": { "name": "Mechanic", "hint": "Works with their hands" },
+      "Architect": { "name": "Architect", "hint": "Plans and builds" },
+      "Journalist": { "name": "Journalist", "hint": "Deals with information" },
+      "Surgeon": { "name": "Surgeon", "hint": "Works in a hospital" },
+      "Veterinarian": { "name": "Veterinarian", "hint": "Heals animals" },
+      "Electrician": { "name": "Electrician", "hint": "A technical trade" },
+      "Photographer": { "name": "Photographer", "hint": "Works with a device" },
+      "Plumber": { "name": "Plumber", "hint": "Provides home services" },
+      "Lawyer": { "name": "Lawyer", "hint": "Works with the law" },
+      "Musician": { "name": "Musician", "hint": "Deals with sounds" }
+    },
+    "places": {
+      "Paris": { "name": "Paris", "hint": "A city in Europe" },
+      "Tokyo": { "name": "Tokyo", "hint": "A large city in Asia" },
+      "New York": { "name": "New York", "hint": "A famous city in the US" },
+      "Egypt": { "name": "Egypt", "hint": "A country with ancient history" },
+      "Amazon": { "name": "Amazon", "hint": "A place with lots of nature" },
+      "Antarctica": { "name": "Antarctica", "hint": "A very cold place" },
+      "Rome": { "name": "Rome", "hint": "An ancient city" },
+      "Hawaii": { "name": "Hawaii", "hint": "A vacation destination" },
+      "London": { "name": "London", "hint": "A large, cool city" },
+      "Sydney": { "name": "Sydney", "hint": "A very distant city" },
+      "Dubai": { "name": "Dubai", "hint": "A place in the Middle East" },
+      "Venice": { "name": "Venice", "hint": "A place with lots of water" },
+      "Hollywood": { "name": "Hollywood", "hint": "Related to entertainment" },
+      "Mars": { "name": "Mars", "hint": "A place outside Earth" },
+      "Bermuda Triangle": {
+        "name": "Bermuda Triangle",
+        "hint": "A mysterious area"
+      },
+      "Mount Everest": {
+        "name": "Mount Everest",
+        "hint": "An extremely high place"
+      },
+      "Sahara": { "name": "Sahara", "hint": "A sandy, dry region" },
+      "Las Vegas": { "name": "Las Vegas", "hint": "A city of lights and fun" },
+      "Atlantis": { "name": "Atlantis", "hint": "An imaginary place" },
+      "North Pole": { "name": "North Pole", "hint": "At the edge of the world" }
+    },
+    "animals": {
+      "Dolphin": { "name": "Dolphin", "hint": "An animal that lives in water" },
+      "Eagle": { "name": "Eagle", "hint": "A flying creature" },
+      "Penguin": { "name": "Penguin", "hint": "An animal from cold regions" },
+      "Tiger": { "name": "Tiger", "hint": "A large cat" },
+      "Elephant": { "name": "Elephant", "hint": "A very heavy animal" },
+      "Octopus": { "name": "Octopus", "hint": "A strange sea creature" },
+      "Chameleon": { "name": "Chameleon", "hint": "A type of reptile" },
+      "Panda": { "name": "Panda", "hint": "A special kind of bear" },
+      "Shark": { "name": "Shark", "hint": "A large, scary fish" },
+      "Butterfly": { "name": "Butterfly", "hint": "A beautiful insect" },
+      "Wolf": { "name": "Wolf", "hint": "Lives in a pack" },
+      "Koala": { "name": "Koala", "hint": "An animal from Australia" },
+      "Flamingo": { "name": "Flamingo", "hint": "A bird with a unique color" },
+      "Gorilla": { "name": "Gorilla", "hint": "A large type of primate" },
+      "Seahorse": {
+        "name": "Seahorse",
+        "hint": "A tiny creature in the water"
+      },
+      "Owl": { "name": "Owl", "hint": "A bird active at night" },
+      "Cheetah": { "name": "Cheetah", "hint": "A very fast animal" },
+      "Jellyfish": { "name": "Jellyfish", "hint": "A transparent sea animal" },
+      "Parrot": { "name": "Parrot", "hint": "A bird that can mimic" },
+      "Turtle": { "name": "Turtle", "hint": "A slow animal with protection" }
+    },
+    "sports": {
+      "Basketball": { "name": "Basketball", "hint": "A game with a ball" },
+      "Tennis": { "name": "Tennis", "hint": "A sport with a racket" },
+      "Swimming": { "name": "Swimming", "hint": "An activity in the water" },
+      "Soccer": { "name": "Soccer", "hint": "A popular team sport" },
+      "Boxing": { "name": "Boxing", "hint": "A fighting sport" },
+      "Skiing": { "name": "Skiing", "hint": "An activity on snow" },
+      "Archery": { "name": "Archery", "hint": "Using an ancient tool" },
+      "Volleyball": { "name": "Volleyball", "hint": "Played over a net" },
+      "Gymnastics": { "name": "Gymnastics", "hint": "A sport of movement" },
+      "Surfing": { "name": "Surfing", "hint": "A sport in the ocean" },
+      "Baseball": { "name": "Baseball", "hint": "A famous ball game" },
+      "Fencing": { "name": "Fencing", "hint": "Fighting with protective gear" },
+      "Golf": { "name": "Golf", "hint": "A slow game in an open area" },
+      "Rugby": { "name": "Rugby", "hint": "A sport with lots of contact" },
+      "Karate": { "name": "Karate", "hint": "A martial art" },
+      "Hockey": { "name": "Hockey", "hint": "Played on a smooth surface" },
+      "Snowboarding": { "name": "Snowboarding", "hint": "Sliding downhill" },
+      "Wrestling": { "name": "Wrestling", "hint": "A sport of strength" },
+      "Badminton": { "name": "Badminton", "hint": "A game with a shuttlecock" },
+      "Table Tennis": {
+        "name": "Table Tennis",
+        "hint": "A smaller version of a familiar game"
+      }
+    }
+  }
+}

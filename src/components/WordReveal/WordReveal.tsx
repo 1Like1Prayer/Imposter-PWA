@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import type { Player, GameRound } from '../../types/game';
-import { REVEAL } from '../../copies';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeftIcon, ArrowRightIcon } from '../shared/Icons';
 import RevealCard from './RevealCard';
 import GameReadyScreen from './GameReadyScreen';
@@ -24,8 +24,9 @@ export default function WordReveal({
   gameRound,
   onRestart,
   onBackToMenu,
-  onBackToSettings,
+  onBackToSettings
 }: WordRevealProps) {
+  const { t } = useTranslation();
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [allDone, setAllDone] = useState(false);
@@ -71,7 +72,9 @@ export default function WordReveal({
   }, []);
 
   if (allDone) {
-    return <GameReadyScreen onRestart={onRestart} onBackToMenu={onBackToMenu} />;
+    return (
+      <GameReadyScreen onRestart={onRestart} onBackToMenu={onBackToMenu} />
+    );
   }
 
   return (
@@ -79,7 +82,7 @@ export default function WordReveal({
       <button
         className="btn btn-ghost btn-icon reveal-back-btn"
         onClick={onBackToSettings}
-        aria-label="Back to settings"
+        aria-label={t('common.backToSettings')}
       >
         <ArrowLeftIcon size={24} />
       </button>
@@ -98,8 +101,11 @@ export default function WordReveal({
 
       {/* Bottom nav — visible once card is flipped */}
       <div className={`reveal-actions${isFlipped ? ' visible' : ''}`}>
-        <button className="btn btn-primary reveal-next-btn" onClick={handleNextPlayer}>
-          {isLastPlayer ? REVEAL.ALL_SEEN : REVEAL.PASS_TO_NEXT}
+        <button
+          className="btn btn-primary reveal-next-btn"
+          onClick={handleNextPlayer}
+        >
+          {isLastPlayer ? t('reveal.allSeen') : t('common.next')}
           <ArrowRightIcon size={18} />
         </button>
       </div>

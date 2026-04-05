@@ -1,6 +1,6 @@
 import type { CategoryName } from '../../types/game';
-import { CATEGORIES as CATEGORIES_DATA } from '../../data/wordLists';
-import { CATEGORIES as CATEGORIES_COPY, COMMON } from '../../copies';
+import { getCategories } from '../../data/wordLists';
+import { useTranslation } from 'react-i18next';
 import { ScreenHeader, ScreenActions, ArrowRightIcon } from '../shared';
 import CategoryCard from './CategoryCard';
 import './CategorySelect.css';
@@ -20,20 +20,21 @@ export default function CategorySelect({
   onToggleCategory,
   canContinue,
   onContinue,
-  onBack,
+  onBack
 }: CategorySelectProps) {
+  const { t } = useTranslation();
   const isMaxSelected = selectedCategories.length >= MAX_CATEGORIES;
 
   return (
     <div className="category-select animate-in">
-      <ScreenHeader title={CATEGORIES_COPY.SCREEN_TITLE} onBack={onBack} />
+      <ScreenHeader title={t('categories.title')} onBack={onBack} />
 
       <p className="category-instruction">
-        {CATEGORIES_COPY.INSTRUCTION(MAX_CATEGORIES)}
+        {t('categories.instruction', { maxCategories: MAX_CATEGORIES })}
       </p>
 
       <div className="category-grid">
-        {CATEGORIES_DATA.map((category) => {
+        {getCategories().map((category) => {
           const isSelected = selectedCategories.includes(category.name);
           const isDisabled = !isSelected && isMaxSelected;
 
@@ -50,7 +51,10 @@ export default function CategorySelect({
       </div>
 
       <p className="selected-count">
-        {CATEGORIES_COPY.SELECTED_COUNT(selectedCategories.length, MAX_CATEGORIES)}
+        {t('categories.selectedCount', {
+          selected: selectedCategories.length,
+          max: MAX_CATEGORIES
+        })}
       </p>
 
       <ScreenActions>
@@ -59,7 +63,7 @@ export default function CategorySelect({
           disabled={!canContinue}
           onClick={onContinue}
         >
-          {COMMON.CONTINUE}
+          {t('common.continue')}
           <ArrowRightIcon size={18} />
         </button>
       </ScreenActions>

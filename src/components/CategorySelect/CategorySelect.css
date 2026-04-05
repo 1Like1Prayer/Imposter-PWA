@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top)) calc(clamp(12px, 5vw, 20px) + var(--safe-right)) calc(clamp(16px, 5vw, 24px) + var(--safe-bottom)) calc(clamp(12px, 5vw, 20px) + var(--safe-left));
+  padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top))
+    calc(clamp(12px, 5vw, 20px) + var(--safe-right)) 0
+    calc(clamp(12px, 5vw, 20px) + var(--safe-left));
+  padding-bottom: calc(clamp(16px, 5vw, 24px) + var(--safe-bottom) + 24px);
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
@@ -18,10 +21,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(8px, 3vw, 12px);
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
 }
 
 .category-card {
@@ -34,7 +33,11 @@
   border: 2px solid var(--border);
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   /* Minimum touch target */

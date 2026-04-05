@@ -72,12 +72,12 @@ body {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   /* Hide scrollbar — mobile game doesn't need visible scrollbar */
-  scrollbar-width: none;           /* Firefox */
-  -ms-overflow-style: none;        /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
 body::-webkit-scrollbar {
-  display: none;                    /* Chrome/Safari */
+  display: none; /* Chrome/Safari */
 }
 
 #root {
@@ -98,7 +98,10 @@ body::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top)) calc(clamp(12px, 5vw, 20px) + var(--safe-right)) calc(clamp(16px, 5vw, 24px) + var(--safe-bottom)) calc(clamp(12px, 5vw, 20px) + var(--safe-left));
+  padding: calc(clamp(16px, 5vw, 24px) + var(--safe-top))
+    calc(clamp(12px, 5vw, 20px) + var(--safe-right))
+    calc(clamp(16px, 5vw, 24px) + var(--safe-bottom))
+    calc(clamp(12px, 5vw, 20px) + var(--safe-left));
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
@@ -109,6 +112,11 @@ body::-webkit-scrollbar {
   align-items: center;
   gap: 12px;
   margin-bottom: 24px;
+}
+
+[dir='rtl'] .screen-header .btn-icon svg,
+[dir='rtl'] .screen-actions .btn svg {
+  transform: scaleX(-1);
 }
 
 .screen-title {
@@ -130,7 +138,12 @@ body::-webkit-scrollbar {
   font-weight: 600;
   font-family: var(--font-sans);
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   touch-action: manipulation;
@@ -294,23 +307,46 @@ input:focus-visible,
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes screenEnter {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .animate-in {
