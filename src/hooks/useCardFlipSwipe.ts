@@ -4,8 +4,10 @@ import { useRef, useCallback, useState } from 'react';
 const FLIP_THRESHOLD = 60;
 /** Drag distance that maps to a full 180° rotation */
 const DRAG_RANGE = 200;
-/** Navigation swipe threshold (px) */
-const NAV_THRESHOLD = 40;
+/** Minimum drag distance (px) to commit a dismiss */
+const DISMISS_THRESHOLD = 80;
+/** Drag distance that maps to full opacity fade */
+const DISMISS_RANGE = 250;
 /** Settle animation duration (ms) */
 const SETTLE_MS = 350;
 
@@ -23,49 +25,51 @@ export default function useCardFlipSwipe({
   onSwipeNext,
 }: UseCardFlipSwipeOptions) {
   const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  // --- Flip drag state (card not yet revealed, horizontal only → rotateY) ---
   const [dragRotation, setDragRotation] = useState<number | null>(null);
-  const [dragAxis, setDragAxis] = useState<'x' | 'y' | null>(null);
   const [dragSign, setDragSign] = useState<1 | -1>(1);
   const [settling, setSettling] = useState(false);
 
+  // --- Dismiss drag state (card revealed, follows finger on both axes) ---
+  const [dismissPos, setDismissPos] = useState<{ x: number; y: number } | null>(null);
+  const [dismissSettling, setDismissSettling] = useState(false);
+
   const handleTouchStart = useCallback(
     (e: React.TouchEvent) => {
-      if (settling) return;
+      if (settling || dismissSettling) return;
       const t = e.touches[0];
       touchStart.current = { x: t.clientX, y: t.clientY };
       if (!isFlipped) {
         setDragRotation(0);
-        setDragAxis(null);
         setDragSign(1);
+      } else {
+        setDismissPos({ x: 0, y: 0 });
       }
     },
-    [isFlipped, settling],
+    [isFlipped, settling, dismissSettling],
   );
 
   const handleTouchMove = useCallback(
     (e: React.TouchEvent) => {
-      if (!touchStart.current || isFlipped) return;
+      if (!touchStart.current) return;
       const t = e.touches[0];
       const dx = t.clientX - touchStart.current.x;
       const dy = t.clientY - touchStart.current.y;
-      const absDx = Math.abs(dx);
-      const absDy = Math.abs(dy);
 
-      // Lock axis and direction once (after ~10px movement)
-      if (dragAxis === null && (absDx > 10 || absDy > 10)) {
-        if (absDx > absDy) {
-          setDragAxis('y');
+      if (!isFlipped) {
+        // Horizontal flip drag only
+        const absDx = Math.abs(dx);
+        if (absDx > 10 && dragRotation === 0) {
           setDragSign(dx > 0 ? 1 : -1);
-        } else {
-          setDragAxis('x');
-          setDragSign(dy > 0 ? -1 : 1);
         }
+        setDragRotation(Math.min((absDx / DRAG_RANGE) * 180, 180));
+      } else {
+        // Dismiss drag — follow finger on both axes
+        setDismissPos({ x: dx, y: dy });
       }
-
-      const distance = Math.max(absDx, absDy);
-      setDragRotation(Math.min((distance / DRAG_RANGE) * 180, 180));
     },
-    [isFlipped, dragAxis],
+    [isFlipped, dragRotation],
   );
 
   const handleTouchEnd = useCallback(
@@ -75,54 +79,65 @@ export default function useCardFlipSwipe({
       const dx = t.clientX - touchStart.current.x;
       const dy = t.clientY - touchStart.current.y;
       const absDx = Math.abs(dx);
-      const absDy = Math.abs(dy);
       touchStart.current = null;
 
       if (!isFlipped) {
-        const distance = Math.max(absDx, absDy);
-        if (distance >= FLIP_THRESHOLD && dragRotation !== null) {
-          // Commit flip
+        if (absDx >= FLIP_THRESHOLD && dragRotation !== null) {
           setSettling(true);
           setDragRotation(180);
           setTimeout(() => {
             setDragRotation(null);
-            setDragAxis(null);
             setSettling(false);
             onFlip();
           }, SETTLE_MS);
         } else if (dragRotation !== null && dragRotation > 0) {
-          // Spring back
           setSettling(true);
           setDragRotation(0);
           setTimeout(() => {
             setDragRotation(null);
-            setDragAxis(null);
             setSettling(false);
           }, SETTLE_MS);
         } else {
           setDragRotation(null);
-          setDragAxis(null);
         }
         return;
       }
 
-      // Card revealed — swipe to navigate
-      if (absDx < NAV_THRESHOLD && absDy < NAV_THRESHOLD) return;
-      onSwipeNext();
+      // Dismiss gesture — use total distance from both axes
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance >= DISMISS_THRESHOLD) {
+        // Fly off in the direction of the swipe
+        const scale = window.innerWidth / Math.max(distance, 1);
+        setDismissSettling(true);
+        setDismissPos({ x: dx * scale, y: dy * scale });
+        setTimeout(() => {
+          setDismissPos(null);
+          setDismissSettling(false);
+          onSwipeNext();
+        }, SETTLE_MS);
+      } else if (dismissPos !== null && (dismissPos.x !== 0 || dismissPos.y !== 0)) {
+        // Spring back
+        setDismissSettling(true);
+        setDismissPos({ x: 0, y: 0 });
+        setTimeout(() => {
+          setDismissPos(null);
+          setDismissSettling(false);
+        }, SETTLE_MS);
+      } else {
+        setDismissPos(null);
+      }
     },
-    [isFlipped, onFlip, onSwipeNext, dragRotation],
+    [isFlipped, onFlip, onSwipeNext, dragRotation, dismissPos],
   );
 
-  // Compute inline styles for the flip surface
+  // --- Flip styles (horizontal only → rotateY) ---
   let flipTransform: string | undefined;
   let flipTransition: string | undefined;
 
   if (noTransition) {
     flipTransition = 'none';
-  } else if (dragRotation !== null && dragAxis) {
-    const signed = dragSign * dragRotation;
-    flipTransform =
-      dragAxis === 'y' ? `rotateY(${signed}deg)` : `rotateX(${signed}deg)`;
+  } else if (dragRotation !== null) {
+    flipTransform = `rotateY(${dragSign * dragRotation}deg)`;
     flipTransition = settling
       ? 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)'
       : 'none';
@@ -131,8 +146,22 @@ export default function useCardFlipSwipe({
     flipTransition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
   }
 
-  const backFaceTransform = dragAxis === 'x' ? 'rotateX(180deg)' : 'rotateY(180deg)';
   const isDragging = dragRotation !== null;
+
+  // --- Dismiss styles (follows finger on both axes) ---
+  let dismissStyle: React.CSSProperties | undefined;
+  if (dismissPos !== null) {
+    const distance = Math.sqrt(dismissPos.x ** 2 + dismissPos.y ** 2);
+    const progress = Math.min(distance / DISMISS_RANGE, 1);
+    const opacity = 1 - progress * 0.6;
+    dismissStyle = {
+      transform: `translate(${dismissPos.x}px, ${dismissPos.y}px)`,
+      opacity,
+      transition: dismissSettling
+        ? 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1)'
+        : 'none',
+    };
+  }
 
   return {
     touchHandlers: {
@@ -144,7 +173,8 @@ export default function useCardFlipSwipe({
       ...(flipTransform !== undefined && { transform: flipTransform }),
       ...(flipTransition !== undefined && { transition: flipTransition }),
     },
-    backFaceTransform,
     isDragging,
+    dismissStyle,
+    backFaceTransform: 'rotateY(180deg)',
   };
 }

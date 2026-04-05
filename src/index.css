@@ -214,6 +214,7 @@ input:focus-visible,
 .screen-actions {
   margin-top: auto;
   padding-top: 24px;
+  padding-bottom: clamp(30px, 4vw, 20px);
   display: flex;
   flex-direction: column;
   gap: 12px;

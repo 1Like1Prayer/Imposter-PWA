@@ -7,7 +7,6 @@ export const REVEAL = {
   HINT_LABEL: 'Your hint',
   SWIPE_NEXT_HINT: 'Swipe to pass to next player',
   PASS_TO_NEXT: 'Next',
-  PASS_TO_PREV: 'Back',
   ALL_SEEN: 'Everyone has seen their word',
 
   /** Shown after all players have revealed */

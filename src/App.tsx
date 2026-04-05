@@ -61,6 +61,7 @@ export default function App() {
           gameRound={game.gameRound}
           onRestart={game.restartRound}
           onBackToMenu={game.resetGame}
+          onBackToSettings={game.goBack}
         />
       );
 

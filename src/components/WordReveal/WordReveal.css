@@ -8,6 +8,12 @@
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
+  position: relative;
+}
+
+.reveal-back-btn {
+  align-self: flex-start;
+  flex-shrink: 0;
 }
 
 /* =============================================
@@ -28,6 +34,25 @@
 
 .reveal-card-container.flipped {
   cursor: default;
+}
+
+/* Slide-in entrance for the next player's card */
+.reveal-card-container.slide-in {
+  animation: card-slide-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes card-slide-in {
+  from {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.3;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Perspective wrapper — keeps perspective isolated from flex layout */
@@ -202,6 +227,7 @@
 .reveal-actions {
   width: 100%;
   padding-top: clamp(8px, 2vw, 10px);
+  padding-bottom: clamp(30px, 4vw, 20px);
   flex-shrink: 0;
   visibility: hidden;
   opacity: 0;
@@ -213,23 +239,12 @@
   opacity: 1;
 }
 
-.reveal-nav-row {
-  display: flex;
-  gap: clamp(8px, 2vw, 12px);
+.reveal-next-btn {
   width: 100%;
-}
-
-.reveal-nav-row .btn {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-}
-
-.reveal-nav-row .btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
 }
 
 /* =============================================

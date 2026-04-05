@@ -9,8 +9,10 @@ interface RevealCardProps {
   isImposter: boolean;
   gameRound: GameRound;
   noTransition?: boolean;
+  slideIn?: boolean;
   onFlip: () => void;
   onSwipeNext: () => void;
+  onSlideInEnd?: () => void;
 }
 
 export default function RevealCard({
@@ -19,16 +21,19 @@ export default function RevealCard({
   isImposter,
   gameRound,
   noTransition,
+  slideIn,
   onFlip,
   onSwipeNext,
+  onSlideInEnd,
 }: RevealCardProps) {
-  const { touchHandlers, flipStyle, backFaceTransform, isDragging } =
+  const { touchHandlers, flipStyle, isDragging, dismissStyle, backFaceTransform } =
     useCardFlipSwipe({ isFlipped, noTransition, onFlip, onSwipeNext });
 
   const containerClass = [
     'reveal-card-container',
     isFlipped && 'flipped',
     noTransition && 'no-transition',
+    slideIn && 'slide-in',
   ]
     .filter(Boolean)
     .join(' ');
@@ -36,8 +41,10 @@ export default function RevealCard({
   return (
     <div
       className={containerClass}
+      style={dismissStyle}
       onClick={!isFlipped && !isDragging ? onFlip : undefined}
       {...touchHandlers}
+      onAnimationEnd={slideIn ? onSlideInEnd : undefined}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
