@@ -191,6 +191,17 @@ export function UserSearchIcon(props: IconProps) {
   );
 }
 
+/** ↔ Swipe horizontal (Lucide: MoveHorizontal) */
+export function SwipeIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <polyline points="18 8 22 12 18 16" />
+      <polyline points="6 8 2 12 6 16" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+    </Icon>
+  );
+}
+
 /** 🔄 Refresh / Restart (Lucide: RefreshCw) */
 export function RefreshIcon(props: IconProps) {
   return (

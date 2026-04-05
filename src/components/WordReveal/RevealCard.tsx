@@ -1,6 +1,7 @@
 import { REVEAL } from '../../copies';
 import type { GameRound } from '../../types/game';
-import { TapIcon, UserSearchIcon, ShieldCheckIcon } from '../shared/Icons';
+import { TapIcon, UserSearchIcon, ShieldCheckIcon, SwipeIcon } from '../shared/Icons';
+import useCardFlipSwipe from '../../hooks/useCardFlipSwipe';
 
 interface RevealCardProps {
   playerName: string;
@@ -8,40 +9,48 @@ interface RevealCardProps {
   isImposter: boolean;
   gameRound: GameRound;
   noTransition?: boolean;
-  onCardTap: () => void;
+  onFlip: () => void;
+  onSwipeNext: () => void;
 }
 
-/** Card that flips horizontally to reveal word/role on tap */
 export default function RevealCard({
   playerName,
   isFlipped,
   isImposter,
   gameRound,
   noTransition,
-  onCardTap,
+  onFlip,
+  onSwipeNext,
 }: RevealCardProps) {
+  const { touchHandlers, flipStyle, backFaceTransform, isDragging } =
+    useCardFlipSwipe({ isFlipped, noTransition, onFlip, onSwipeNext });
+
   const containerClass = [
     'reveal-card-container',
     isFlipped && 'flipped',
     noTransition && 'no-transition',
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <div
       className={containerClass}
-      onClick={onCardTap}
+      onClick={!isFlipped && !isDragging ? onFlip : undefined}
+      {...touchHandlers}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          onCardTap();
+          if (!isFlipped) onFlip();
         }
       }}
-      aria-label={isFlipped ? 'Tap to hide your role' : 'Tap to reveal your role'}
+      aria-label={isFlipped ? `${playerName}'s role revealed` : 'Tap to reveal your role'}
     >
       <div className="reveal-card-inner">
-        <div className="reveal-card-flip">
-          {/* ===== FRONT FACE — tap to reveal ===== */}
+        <div className="reveal-card-flip" style={flipStyle}>
+          {/* ===== FRONT FACE — tap / swipe to reveal ===== */}
           <div className="reveal-card-face reveal-card-front">
             <h2 className="reveal-card-name">{playerName}</h2>
             <span className="reveal-tap-icon">
@@ -56,7 +65,10 @@ export default function RevealCard({
             className={`reveal-card-face reveal-card-back ${
               isImposter ? 'is-imposter' : 'is-normal'
             }`}
+            style={{ transform: backFaceTransform }}
           >
+            <h2 className="reveal-card-name-back">{playerName}</h2>
+
             {isImposter ? (
               <>
                 <span className="reveal-role-icon imposter-icon">
@@ -75,6 +87,11 @@ export default function RevealCard({
                 <span className="reveal-word">{gameRound.secretWord}</span>
               </>
             )}
+
+            <div className="reveal-swipe-hint">
+              <SwipeIcon size={20} />
+              <span>{REVEAL.SWIPE_NEXT_HINT}</span>
+            </div>
           </div>
         </div>
       </div>

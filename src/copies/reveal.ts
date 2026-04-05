@@ -1,11 +1,13 @@
 /** Word reveal screen strings */
 export const REVEAL = {
-  TAP_HINT: 'Tap to see your word',
+  TAP_HINT: 'Click or swipe to see your word',
   PRIVACY_WARNING: 'Make sure no one else is looking!',
   ROLE_IMPOSTER: 'You are the Imposter!',
   ROLE_SAFE: 'You are safe',
   HINT_LABEL: 'Your hint',
-  PASS_TO_NEXT: 'Pass to next player',
+  SWIPE_NEXT_HINT: 'Swipe to pass to next player',
+  PASS_TO_NEXT: 'Next',
+  PASS_TO_PREV: 'Back',
   ALL_SEEN: 'Everyone has seen their word',
 
   /** Shown after all players have revealed */
